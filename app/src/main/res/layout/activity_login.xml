@@ -46,6 +46,7 @@
                     android:layout_marginLeft="20dp"
                     android:background="@null"
                     android:textColor="@color/black"
+                    android:text="719622388"
                     android:hint="请输入账号"
                     android:textColorHint="#bcbcbc"
                     android:textSize="18sp" />
@@ -76,6 +77,7 @@
                     android:layout_marginLeft="20dp"
                     android:background="@null"
                     android:inputType="textPassword"
+                    android:text="123456a"
                     android:hint="请输入密码"
                     android:textColor="@color/black"
                     android:textColorHint="#bcbcbc"
@@ -94,6 +96,19 @@
             android:background="@drawable/shape_big_login_btn"
             android:textColor="@color/white"
             android:textSize="24sp" />
+
+        <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
+            android:id="@+id/HuaweiIdAuthButton"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="108dp"
+            android:background="@drawable/shape_big_login_btn"
+            android:textColor="@color/white"
+            android:text="华为登录"
+            android:textSize="24sp"
+            />
+
     </LinearLayout>
 
 
