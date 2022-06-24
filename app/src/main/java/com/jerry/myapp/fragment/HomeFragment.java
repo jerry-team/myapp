@@ -5,12 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flyco.tablayout.SlidingTabLayout;
 import com.jerry.myapp.R;
+import com.jerry.myapp.adapter.HomeAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,10 @@ import com.jerry.myapp.R;
 public class HomeFragment extends BaseFragment {
 
     private OnFragmentInteractionListener mListener;
+    private ViewPager viewPager;
+    private SlidingTabLayout slidingTabLayout;
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private String[] mTitles = {"首页","推荐","猫","狗","猪","鸭","鼠"};
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -38,12 +47,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -59,12 +62,24 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        viewPager = mRootView.findViewById(R.id.fixedViewPager);
+        slidingTabLayout = mRootView.findViewById(R.id.slidingTabLayout);
     }
 
     @Override
     protected void initData() {
+        getCategoryList();
+    }
 
+    private void getCategoryList(){
+        for(int i = 0;i < mTitles.length;i++)
+        {
+            mFragments.add(GoodsFragment.newInstance(i));
+        }
+
+        viewPager.setOffscreenPageLimit(mFragments.size());
+        viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
+        slidingTabLayout.setViewPager(viewPager);
     }
 
     /**

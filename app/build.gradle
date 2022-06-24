@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.huawei.hms:safetydetect:5.0.5.302'
     // HMS Core - FIDO BioAuthn
     implementation 'com.huawei.hms:fido-bioauthn-androidx:5.0.5.304'
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 39a819769de134aadbfc69e31a1762fa7c887262
 }

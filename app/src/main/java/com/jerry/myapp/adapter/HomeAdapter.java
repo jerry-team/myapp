@@ -25,4 +25,10 @@ public class HomeAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragments.size();
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles[position];
+    }
+
 }
