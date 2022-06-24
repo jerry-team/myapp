@@ -34,6 +34,7 @@ public class LoginActivity extends BaseActivity {
     private EditText etAccount;
     private EditText etPwd;
     private Button btnLogin;
+    private Button btnRegister;
     private HuaweiIdAuthButton huaweiIdAuthButton;
 
     // 华为帐号登录授权服务，提供静默登录接口silentSignIn，获取前台登录视图getSignInIntent，登出signOut等接口
@@ -59,7 +60,9 @@ public class LoginActivity extends BaseActivity {
         etAccount = findViewById(R.id.et_account);
         etPwd = findViewById(R.id.et_pwd);
         btnLogin = findViewById(R.id.btn_login);
-        huaweiIdAuthButton = findViewById(R.id.HuaweiIdAuthButton);
+//        huaweiIdAuthButton = findViewById(R.id.HuaweiIdAuthButton);
+        btnRegister = findViewById(R.id.btn_register);
+
     }
 
     @Override
@@ -73,12 +76,19 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        huaweiIdAuthButton.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                silentSignInByHwId();
+                navigateTo(RegisterActivity.class);
             }
         });
+
+//        huaweiIdAuthButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                silentSignInByHwId();
+//            }
+//        });
     }
 
     private void login(String account, String pwd) {

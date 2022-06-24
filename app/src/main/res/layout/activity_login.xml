@@ -70,6 +70,7 @@
                     android:layout_height="25dp"
                     android:src="@mipmap/pwd" />
 
+
                 <EditText
                     android:id="@+id/et_pwd"
                     android:layout_width="wrap_content"
@@ -82,6 +83,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="#bcbcbc"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -97,17 +99,27 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
-            android:id="@+id/HuaweiIdAuthButton"
+        <Button
+            android:id="@+id/btn_register"
             android:layout_width="200dp"
             android:layout_height="55dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="108dp"
+            android:text="注册"
             android:background="@drawable/shape_big_login_btn"
             android:textColor="@color/white"
-            android:text="华为登录"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp" />
+
+<!--        <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton-->
+<!--            android:id="@+id/HuaweiIdAuthButton"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginLeft="108dp"-->
+<!--            android:background="@drawable/shape_big_login_btn"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:text="华为登录"-->
+<!--            android:textSize="24sp" />-->
 
     </LinearLayout>
 
