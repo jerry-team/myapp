@@ -56,6 +56,7 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:10.0.0'         //用来简化获得控件对象，添加监听器代码的插件
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation 'io.github.youth5201314:banner:2.2.2'  //第三方轮播图组件
 
     implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'//华为账号服务
 

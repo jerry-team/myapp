@@ -10,6 +10,7 @@ public class test {
     private int code;
     private String msg;
     private user data;
+    public static String imageRes;
 
     public int getCode() {
         return code;
