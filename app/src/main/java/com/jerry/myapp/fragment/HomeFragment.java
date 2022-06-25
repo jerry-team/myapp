@@ -2,20 +2,18 @@ package com.jerry.myapp.fragment;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.flyco.tablayout.SlidingTabLayout;
 import com.jerry.myapp.R;
+import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.adapter.HomeAdapter;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +28,8 @@ public class HomeFragment extends BaseFragment {
     private SlidingTabLayout slidingTabLayout;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页","推荐","猫","狗","猪","鸭","鼠"};
+    private Banner banner;
+    private List<Integer> images = new ArrayList<>();
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -64,11 +64,13 @@ public class HomeFragment extends BaseFragment {
     protected void initView() {
         viewPager = mRootView.findViewById(R.id.fixedViewPager);
         slidingTabLayout = mRootView.findViewById(R.id.slidingTabLayout);
+        banner = mRootView.findViewById(R.id.banner);
     }
 
     @Override
     protected void initData() {
         getCategoryList();
+        useBanner();
     }
 
     private void getCategoryList(){
@@ -80,6 +82,15 @@ public class HomeFragment extends BaseFragment {
         viewPager.setOffscreenPageLimit(mFragments.size());
         viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
         slidingTabLayout.setViewPager(viewPager);
+    }
+
+    public void useBanner(){
+        images.add(R.mipmap.image1);
+        images.add(R.mipmap.image2);
+        images.add(R.mipmap.image3);
+        banner.setImages(images)
+                .setImageLoader(new GlideImageLoader())
+                .start();
     }
 
     /**

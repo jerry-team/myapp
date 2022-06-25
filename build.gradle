@@ -5,7 +5,7 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://developer.huawei.com/repo/' }
-        maven { url "https://s01.oss.sonatype.org/content/groups/public" } //第三方轮播图组件
+//        maven { url "https://s01.oss.sonatype.org/content/groups/public" } //第三方轮播图组件
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
