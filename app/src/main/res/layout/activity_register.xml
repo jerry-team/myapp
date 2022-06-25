@@ -15,11 +15,10 @@
 
         <ImageView
             android:id="@+id/register_background_im1"
-            android:layout_width="wrap_content"
-            android:layout_height="208dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/register_background"
-            />
+            android:src="@mipmap/register_background" />
 
 
         <ImageView
@@ -28,7 +27,7 @@
             android:layout_height="200dp"
             android:layout_below="@+id/register_background_im1"
             android:layout_gravity="center"
-            android:layout_marginTop="-100dp"
+            android:layout_marginTop="-120dp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/petshop_logo" />
     </RelativeLayout>
@@ -42,7 +41,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:background="@drawable/edit_rigster"
-        android:layout_marginTop="20dp"
+
 
         >
 
@@ -222,7 +221,7 @@
         android:textColor="#818181"
         android:clickable="true"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="92dp"
+        android:layout_marginLeft="50dp"
         android:textSize="15dp"
         />
 
