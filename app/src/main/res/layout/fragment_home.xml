@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
@@ -34,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="11dp"
-                android:hint="搜索你喜欢的视频"
+                android:hint="请输入关键字"
                 android:textColor="@color/black"
                 android:textColorHint="#737373"
                 android:textSize="15sp" />

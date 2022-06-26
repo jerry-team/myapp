@@ -2,20 +2,18 @@ package com.jerry.myapp.fragment;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.flyco.tablayout.SlidingTabLayout;
 import com.jerry.myapp.R;
+import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.adapter.HomeAdapter;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
