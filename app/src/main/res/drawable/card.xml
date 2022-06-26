@@ -5,7 +5,7 @@
         <shape android:shape="rectangle">
             <padding
                 android:bottom="2dp"
-                android:left="1.5dp"
+                android:left="3dp"
                 android:right="2dp"
                 android:top="1.5dp" />
             <solid android:color="#F2F2F2" />
@@ -17,14 +17,14 @@
         <shape
             android:shape="rectangle"
             android:useLevel="false">
-            <!-- 实心 -->
-            <solid android:color="#fed9a4" />
-            <corners android:radius="12dp" />
+            <!-- 实心#fed9a4 -->
+            <solid android:color="#ffffff" />
+            <corners android:radius="10dp" />
             <padding
-                android:bottom="20dp"
-                android:left="20dp"
-                android:right="20dp"
-                android:top="20dp" />
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="1dp" />
         </shape>
     </item>
 </layer-list>

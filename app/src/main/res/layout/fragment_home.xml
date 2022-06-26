@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="11dp"
-                android:hint="搜索你喜欢的视频"
+                android:hint="请输入关键字"
                 android:textColor="@color/black"
                 android:textColorHint="#737373"
                 android:textSize="15sp" />
@@ -54,11 +54,6 @@
             tl:tl_indicator_color="#fdf299"
             tl:tl_textsize="16sp" />
     </LinearLayout>
-    <com.youth.banner.Banner
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
 
     <com.jerry.myapp.view.FixedViewPager
         android:id="@+id/fixedViewPager"
