@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@mipmap/register_background"
     android:orientation="vertical"
     tools:context=".activity.RegisterActivity">
 
@@ -11,15 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        >
 
         <ImageView
             android:id="@+id/register_background_im1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/register_background" />
-
+            />
 
         <ImageView
             android:id="@+id/app_logo"
@@ -27,10 +26,12 @@
             android:layout_height="200dp"
             android:layout_below="@+id/register_background_im1"
             android:layout_gravity="center"
-            android:layout_marginTop="-120dp"
+
             android:layout_centerHorizontal="true"
             android:src="@mipmap/petshop_logo" />
     </RelativeLayout>
+
+
 
 
     <LinearLayout
@@ -41,8 +42,6 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:background="@drawable/edit_rigster"
-
-
         >
 
         <ImageView
@@ -121,7 +120,6 @@
             android:layout_height="25dp"
             android:src="@mipmap/re_pwd"
             android:layout_marginLeft="-43dp"
-
             />
 
         <EditText
@@ -166,7 +164,6 @@
             android:layout_marginLeft="10dp"
             android:ems="10"
             android:hint="请输入邮箱"
-            android:inputType="textPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/grey" />
     </LinearLayout>
@@ -200,7 +197,6 @@
             android:layout_marginLeft="10dp"
             android:ems="10"
             android:hint="请输入手机号"
-            android:inputType="textPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/grey" />
     </LinearLayout>
@@ -215,6 +211,7 @@
         android:textSize="24sp" />
 
     <TextView
+        android:id="@+id/return_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="返回登录"
