@@ -11,4 +11,5 @@
     <color name="skin_topbar_bg_color">#344261</color>
     <color name="grey">#B3B1B1</color>
     <color name="transparency">#00FDF1F1</color>
+    <color name="transparency_grey">#B2FFFFFF</color>
 </resources>
