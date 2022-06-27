@@ -63,6 +63,7 @@
             android:textColorHint="@color/grey" />
 
         <ImageButton
+            android:id="@+id/clear_username"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="53dp"
@@ -97,8 +98,11 @@
             android:textColorHint="@color/grey"
             android:inputType="textPassword"/>
         <ToggleButton
+            android:id="@+id/pwd_show_hide"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:textOn=""
+            android:textOff=""
             android:background="@mipmap/off_pwd" />
     </LinearLayout>
 

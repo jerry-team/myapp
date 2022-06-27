@@ -1,11 +1,18 @@
 package com.jerry.myapp.activity;
 
+import android.graphics.drawable.Drawable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
@@ -28,7 +35,9 @@ public class RegisterActivity extends BaseActivity {
     private EditText rPhone;
     private Button btn_register;
     private TextView return_login;
-
+    private ImageButton clear_username;
+    private ToggleButton show_hide;
+    private Drawable on,off;
 
     @Override
     protected int initLayout() {
@@ -44,11 +53,16 @@ public class RegisterActivity extends BaseActivity {
         rPhone = findViewById(R.id.phone_info);
         btn_register = findViewById(R.id.btn_register);
         return_login = findViewById(R.id.return_login);
-
+        clear_username = findViewById(R.id.clear_username);
+        show_hide = findViewById(R.id.pwd_show_hide);
+        on = this.getResources().getDrawable((R.mipmap.on_pwd));
+        off = this.getResources().getDrawable((R.mipmap.off_pwd));
     }
 
     @Override
     protected void initData() {
+
+        //注册按钮
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,16 +77,42 @@ public class RegisterActivity extends BaseActivity {
                 rInfo.setRepwd(repwd);
                 rInfo.setRemail(remail);
                 rInfo.setRphone(rphone);
-
                 register(rInfo);
 
             }
         });
 
+        //返回注册界面的按钮
         return_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigateTo(LoginActivity.class);
+            }
+        });
+
+
+        //清空文本框的按钮
+        clear_username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rUsername.setText("");
+            }
+        });
+
+        //密码显示与隐藏按钮
+        show_hide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if(isChecked){
+                    //如果选中，显示密码
+                    rPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    show_hide.setBackgroundDrawable(on);
+
+                }else{
+                    //否则隐藏密码
+                    rPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    show_hide.setBackgroundDrawable(off);
+                }
             }
         });
     }
