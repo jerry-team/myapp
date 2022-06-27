@@ -11,6 +11,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
     signingConfigs {
         release {
@@ -72,4 +76,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'androidx.cardview:cardview:1.0.0'
+
+//    implementation 'com.huawei.hms:videokit-player:1.0.10.300'   //华为视频服务
 }

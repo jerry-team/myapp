@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
@@ -60,7 +62,7 @@ public class LoginActivity extends BaseActivity {
         etAccount = findViewById(R.id.et_account);
         etPwd = findViewById(R.id.et_pwd);
         btnLogin = findViewById(R.id.btn_login);
-//        huaweiIdAuthButton = findViewById(R.id.HuaweiIdAuthButton);
+        huaweiIdAuthButton = findViewById(R.id.HuaweiIdAuthButton);
         btnRegister = findViewById(R.id.btn_register);
 
     }
@@ -83,12 +85,13 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-//        huaweiIdAuthButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                silentSignInByHwId();
-//            }
-//        });
+        huaweiIdAuthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHuaweiAccountLogin();
+//                silentSignInByHwId();
+            }
+        });
     }
 
     private void login(String account, String pwd) {
@@ -127,32 +130,44 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * init safety detect
-     */
-    private void initSafetyDetect() {
-        // init SafetyDetect
-        SafetyDetectClient client = SafetyDetect.getClient(this);
-        client.initUserDetect().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                // init success
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                // init fail
-            }
-        });
-    }
-
-    /**
      * HUAWEI Account Login in
      */
-//    private void onHuaweiAccountLogin() {
-//        AccountAuthParams authParams = new AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM)
-//                .setIdToken().createParams();
-//        AccountAuthService mAuthService = AccountAuthManager.getService(this, authParams);
-//        startActivityForResult(mAuthService.getSignInIntent(), REQUEST_CODE);
+    private void onHuaweiAccountLogin() {
+        AccountAuthParams authParams = new AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM)
+                .setIdToken().createParams();
+        AccountAuthService mAuthService = AccountAuthManager.getService(this, authParams);
+        startActivityForResult(mAuthService.getSignInIntent(), 200);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            Task<AuthAccount> authAccountTask = AccountAuthManager.parseAuthResultFromIntent(data);
+            if (authAccountTask.isSuccessful()) {
+                //login success
+                AuthAccount authAccount = authAccountTask.getResult();
+//                onHuaweiIdLoginSuccess(authAccount);
+            } else {
+                Log.e(TAG, "sign in failed : " + ((ApiException) authAccountTask.getException()).getStatusCode());
+            }
+        }
+    }
+
+//    private void onHuaweiIdLoginSuccess(AuthAccount authAccount) {
+//        String openId = authAccount.getOpenId();
+//        Log.i(TAG, "OpenId : " + openId);
+//        SPUtil.put(this, SPConstants.KEY_OPENID, openId);
+//        // save user info
+//        LoginResponse.UserBean userBean = UserUtil.getLocalUser(this, openId);
+//        if (userBean == null) {
+//            userBean = new LoginResponse.UserBean();
+//            userBean.setAvatar(authAccount.getAvatarUriString());
+//            userBean.setDisplayName(authAccount.getDisplayName());
+//            String localStr = new Gson().toJson(userBean);
+//            SPUtil.put(this, openId, localStr);
+//        }
+//        startActivity(new Intent(this, HomeAct.class));
+//        finish();
 //    }
 
     /**

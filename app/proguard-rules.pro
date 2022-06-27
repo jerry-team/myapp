@@ -28,4 +28,6 @@
 -keep class com.huawei.hianalytics.**{*;}
 -keep class com.huawei.updatesdk.**{*;}
 -keep class com.huawei.hms.**{*;}
+# 集成fallback SDK需要添加动态加载dynamic不混淆
+-keep class com.huawei.hms.feature.dynamic.descriptors.huawei_module_videoplayer.AssetModuleDescriptor{*;}
 
