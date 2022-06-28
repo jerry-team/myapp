@@ -6,6 +6,7 @@
     <color name="white">#ffffff</color>
     <color name="background">#f2f2f2</color>
     <color name="black">#000000</color>
+    <color name="price">#e65b25</color>
     <color name="divider">#5b5dff</color>
     <color name="skin_text_white">#ffffff</color>
     <color name="skin_topbar_bg_color">#344261</color>

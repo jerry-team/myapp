@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
-public class LoginResponse {
+import java.io.Serializable;
+
+public class LoginResponse implements Serializable {
     /**
      * code : 200
      * msg : 操作成功

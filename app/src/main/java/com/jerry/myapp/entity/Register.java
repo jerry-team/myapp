@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
-public class Register {
+import java.io.Serializable;
+
+public class Register implements Serializable {
     private String rusername;
     private String rpwd;
     private String repwd;

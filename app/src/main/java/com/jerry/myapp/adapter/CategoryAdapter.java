@@ -12,13 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jerry.myapp.R;
 import com.jerry.myapp.entity.CategoryEntity;
-import com.jerry.myapp.entity.GoodsEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
     private List<CategoryEntity> categoryEntityList;
     private Context mContext;
+    private GoodsAdapter.OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(GoodsAdapter.OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView categoryIcon;
@@ -64,4 +69,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return categoryEntityList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Serializable obj);
+    }
 }

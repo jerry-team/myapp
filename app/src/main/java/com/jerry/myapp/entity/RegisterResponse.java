@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
-public class RegisterResponse {
+import java.io.Serializable;
+
+public class RegisterResponse implements Serializable {
     private int code;
     private String msg;
     private RegisterBean data;
