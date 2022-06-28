@@ -74,6 +74,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'androidx.cardview:cardview:1.0.0'
+<<<<<<< HEAD
     //Gson解析
     implementation 'com.google.code.gson:gson:2.8.6'
     //RecyclerView
@@ -88,5 +89,10 @@ dependencies {
     //没有使用特殊Header，可以不加这行
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
     compile'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
+=======
+
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0' //下拉刷新库
+
+>>>>>>> b6e2258e9dd85c7859268332d1b71b7987f5d47d
 //    implementation 'com.huawei.hms:videokit-player:1.0.10.300'   //华为视频服务
 }
