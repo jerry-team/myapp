@@ -10,7 +10,7 @@ import com.jerry.myapp.R;
 import com.jerry.myapp.adapter.HomeAdapter;
 import com.jerry.myapp.entity.TabEntity;
 import com.jerry.myapp.fragment.HomeFragment;
-import com.jerry.myapp.fragment.MyFragment;
+import com.jerry.myapp.fragment.ProfileFragment;
 import com.jerry.myapp.fragment.ShopCartFragment;
 import com.jerry.myapp.fragment.StoreFragment;
 
@@ -48,7 +48,7 @@ public class HomeActivity extends BaseActivity {
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(StoreFragment.newInstance());
         mFragments.add(ShopCartFragment.newInstance());
-        mFragments.add(MyFragment.newInstance());
+        mFragments.add(ProfileFragment.newInstance());
         for(int i = 0;i < mTitles.length;i++){
             mTabEntities.add(new TabEntity(mTitles[i],mIconSelectIds[i],mIconUnselectIds[i]));
         }

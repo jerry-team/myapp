@@ -21,7 +21,11 @@ import java.util.List;
  * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class HomeFragment extends BaseFragment {
+public class
+
+
+
+HomeFragment extends BaseFragment {
 
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;

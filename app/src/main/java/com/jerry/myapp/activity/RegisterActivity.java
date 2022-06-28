@@ -191,6 +191,7 @@ public class RegisterActivity extends BaseActivity {
                 if (registerResponse.getCode() == 200) {
                     navigateTo(LoginActivity.class);//放在showToastSync之前
                     showToastSync("注册成功");
+                    navigateTo(LoginActivity.class);
                 } else {
                     showToastSync(registerResponse.getMsg());
                 }
