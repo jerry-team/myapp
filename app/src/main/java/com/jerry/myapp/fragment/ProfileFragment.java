@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
-import com.jerry.myapp.activity.HomeActivity;
+
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;

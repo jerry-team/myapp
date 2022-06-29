@@ -24,6 +24,7 @@ import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.GoodsResponse;
 import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.util.StringUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -45,7 +46,7 @@ public class GoodsFragment extends BaseFragment {
     private CategoryAdapter mAdapter_category;
     private Banner banner;
     private List<Integer> images = new ArrayList<>();
-    private RefreshLayout refreshLayout;
+    private SmartRefreshLayout refreshLayout;
     private CategoryResponse categoryResponse;
     private List<CategoryEntity> categoryEntityList = new ArrayList<>();
     private List<GoodsEntity> goodsEntityList = new ArrayList<>();

@@ -55,8 +55,8 @@ public class RegisterActivity extends BaseActivity {
         return_login = findViewById(R.id.return_login);
         clear_username = findViewById(R.id.clear_username);
         show_hide = findViewById(R.id.pwd_show_hide);
-        on = this.getResources().getDrawable((R.mipmap.on_pwd));
-        off = this.getResources().getDrawable((R.mipmap.off_pwd));
+        on = getResources().getDrawable((R.mipmap.on_pwd));
+        off = getResources().getDrawable((R.mipmap.off_pwd));
     }
 
     @Override

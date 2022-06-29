@@ -154,6 +154,11 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
 //    private void onHuaweiIdLoginSuccess(AuthAccount authAccount) {
 //        String openId = authAccount.getOpenId();
 //        Log.i(TAG, "OpenId : " + openId);
