@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
+import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.activity.LoginActivity;
 import com.jerry.myapp.adapter.CategoryAdapter;
 import com.jerry.myapp.adapter.GoodsAdapter;
@@ -98,7 +99,7 @@ public class GoodsFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Serializable obj) {
-                navigateTo(DetailFragment.class);
+                navigateTo(GoodsDetailActivity.class);
             }
         });
 
