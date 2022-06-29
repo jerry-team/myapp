@@ -11,15 +11,17 @@
         android:layout_height="match_parent"
         android:background="@drawable/profile_background"
         tools:context=".fragment.ProfileFragment">
-    <!--      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--          android:id="@+id/swipeRefreshLayout"-->
-    <!--          android:layout_width="match_parent"-->
-    <!--          android:layout_height="match_parent">-->
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/setting"
+                    android:layout_alignParentRight="true"
+                    android:clickable="true"
+                    ></ImageView>
                 <org.raphets.roundimageview.RoundImageView
                     android:id="@+id/person_icon"
                     android:layout_width="90dp"
@@ -28,10 +30,11 @@
                     app:corner_radius="100dp"
                     app:type="round"
                     android:layout_marginTop="70dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:clickable="true"
                     app:border_color="@color/black"
                     app:border_width="1dp"
+
                     />
 
                 <TextView
@@ -47,16 +50,17 @@
                     android:clickable="true"
                     ></TextView>
                 <ImageView
+                    android:id="@+id/right_arrow"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="@mipmap/right"
                     android:layout_alignTop="@+id/user_name"
                     android:layout_toRightOf="@+id/user_name"
                     android:clickable="true"
-
                     >
                 </ImageView>
                 <Button
+                    android:id="@+id/state"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/state_common_background"
@@ -83,19 +87,17 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            app:cardBackgroundColor="@color/transparency_grey"
-
-            >
+            app:cardBackgroundColor="@color/transparency_grey">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="170dp"
                 android:gravity="center"
-                android:background="@drawable/advert_background"
-                >
+                android:background="@drawable/advert_background">
                 <ImageView
+                    android:id="@+id/ad_background"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
+                    android:layout_width="380dp"
                     android:layout_height="match_parent"
                     android:src="@mipmap/advert_background"
                     android:elevation="10dp"/>
@@ -105,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="立即成为会员"
-                    android:textColor="#121212"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:clickable="true"
                     android:textStyle="bold"
@@ -128,6 +130,7 @@
                     android:typeface="sans"
                     ></TextView>
                 <Button
+                    android:id="@+id/btn_endrose"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:background="@drawable/advert_button"
@@ -152,62 +155,181 @@
             android:clickable="true"
             app:cardBackgroundColor="#F5F5F5"
             >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="130dp">
-            <TextView
-                android:id="@+id/my_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的订单"
-                android:textColor="#121212"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:textSize="17dp"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="18dp"
-                android:layout_marginRight="5dp"
-                android:background="@color/transparency"
-                android:drawableRight="@mipmap/arrow_right"
-                android:drawablePadding="-5dp"
-                android:layout_alignTop="@+id/my_order"
-                android:text="查看订单"
-                android:textColor="#bfbfbf" />
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                >-->
-<!--                <ImageView-->
-
-<!--            </LinearLayout>-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:background="@color/black">
+                android:layout_height="120dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/my_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的订单"
+                        android:textColor="#121212"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="230dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/transparency"
+                        android:drawableRight="@mipmap/arrow_right"
+                        android:drawablePadding="-5dp"
+                        android:text="查看订单"
+                        android:textColor="#bfbfbf" />
+                </LinearLayout>
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="5"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="10dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="5dp">
+
+                    <ImageView
+                        android:id="@+id/icon_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:src="@mipmap/wait_pay" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="待付款"
+                            android:layout_below="@+id/icon_1"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/icon_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="2"
+                            android:src="@mipmap/wait_send3" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="待发货"
+                            android:layout_below="@+id/icon_2"
+                            android:layout_marginTop="8dp"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="30dp">
+
+                        <ImageView
+                            android:id="@+id/icon_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:layout_marginTop="4dp"
+                            android:src="@mipmap/al_send" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="已发货"
+                            android:layout_below="@+id/icon_3"
+                            android:layout_marginTop="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="6dp">
+
+                        <ImageView
+                            android:id="@+id/icon_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="4"
+                            android:src="@mipmap/refund" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="待付款"
+                            android:layout_below="@+id/icon_4"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="6dp">
+
+                        <ImageView
+                            android:id="@+id/icon_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="5"
+                            android:layout_marginTop="3dp"
+                            android:src="@mipmap/assess" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="去评价"
+                            android:layout_below="@+id/icon_5"
+                            android:layout_marginTop="9dp"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+
+                </GridLayout>
 
 
-
-
-
-
-
-            <!--      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-
-        </RelativeLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -222,16 +344,138 @@
             android:clickable="true"
             app:cardBackgroundColor="#F5F5F5"
             >
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:gravity="center"
-                >
+                android:layout_height="120dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/offten_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="常用信息"
+                    android:textColor="#121212"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    />
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="10dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="5dp">
 
-                <!--      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+                        <ImageView
+                            android:id="@+id/icon_6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:src="@mipmap/address" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="住址管理"
+                            android:layout_below="@+id/icon_6"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
 
-            </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/icon_7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:src="@mipmap/browser" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="浏览记录"
+                            android:layout_below="@+id/icon_7"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="6dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/icon_8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:src="@mipmap/collect" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的收藏"
+                            android:layout_below="@+id/icon_8"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/icon_9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:src="@mipmap/money" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="余额"
+                            android:layout_below="@+id/icon_9"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </RelativeLayout>
+
+                </GridLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>

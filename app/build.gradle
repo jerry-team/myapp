@@ -77,6 +77,8 @@ dependencies {
 
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0' //下拉刷新库
+
 //    implementation 'com.huawei.hms:videokit-player:1.0.10.300'   //华为视频服务
 
     implementation 'org.raphets:roundimageview:1.2.0'

@@ -44,11 +44,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void saveStringToSp(String key, String val) {
-
         SharedPreferences sp = getSharedPreferences("sp_ttit", MODE_PRIVATE);//保存在sp_ttit.xml文件中
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, val);
         editor.commit();
 
+    }
+
+    protected void removeByKey(String key) {
+        SharedPreferences sp = getSharedPreferences("sp_ttit", MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.remove(key);
+        edit.commit();
     }
 }

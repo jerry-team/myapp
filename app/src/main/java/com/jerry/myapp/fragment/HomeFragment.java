@@ -2,17 +2,25 @@ package com.jerry.myapp.fragment;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.jerry.myapp.R;
+import com.jerry.myapp.api.Api;
+import com.jerry.myapp.api.ApiConfig;
+import com.jerry.myapp.api.TtitCallback;
+import com.jerry.myapp.entity.CategoryEntity;
+import com.jerry.myapp.entity.CategoryResponse;
 import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.adapter.HomeAdapter;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,7 +39,8 @@ HomeFragment extends BaseFragment {
     private ViewPager viewPager;
     private SlidingTabLayout slidingTabLayout;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页","推荐","猫","狗","猪","鸭","鼠"};
+    private CategoryResponse categoryResponse;
+    private String[] mTitles;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -74,14 +83,52 @@ HomeFragment extends BaseFragment {
     }
 
     private void getCategoryList(){
-        for(int i = 0;i < mTitles.length;i++)
-        {
-            mFragments.add(GoodsFragment.newInstance(i));
-        }
+        String token = getStringFromSp("token");
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("token", token);
+        Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
 
-        viewPager.setOffscreenPageLimit(mFragments.size());
-        viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
-        slidingTabLayout.setViewPager(viewPager);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("onSuccess", res);
+                        Gson gson = new Gson();
+                        CategoryResponse categoryResponse = gson.fromJson(res, CategoryResponse.class);
+                        if (categoryResponse.getCode() == 200) {
+                            List<CategoryEntity> list = new ArrayList<>();
+                            for(CategoryEntity category:categoryResponse.getData()){
+                                if(category.getType() == 0){
+                                    list.add(category);
+                                }
+                            }
+                            if (list != null && list.size() > 0) {
+                                mTitles = new String[list.size()+2];
+                                mTitles[0] = "首页";mFragments.add(GoodsFragment.newInstance(0));
+                                mTitles[1] = "推荐";mFragments.add(GoodsFragment.newInstance(1));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    mTitles[i+2] = list.get(i).getName();
+                                    mFragments.add(GoodsFragment.newInstance(list.get(i).getId()+1));
+                                }
+                                viewPager.setOffscreenPageLimit(mFragments.size());
+                                viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
+                                slidingTabLayout.setViewPager(viewPager);
+                            }
+
+                        } else {
+                            showToastSync(categoryResponse.getMsg());
+                        }
+
+                    }
+                });
+            }
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     /**
