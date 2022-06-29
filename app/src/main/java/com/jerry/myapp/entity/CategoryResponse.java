@@ -1,8 +1,9 @@
 package com.jerry.myapp.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CategoryResponse {
+public class CategoryResponse implements Serializable {
     /**
      * code : 200
      * msg : 操作成功

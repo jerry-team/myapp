@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
-public class CategoryEntity {
+import java.io.Serializable;
+
+public class CategoryEntity implements Serializable {
     /**
      * id : 1
      * createTime : 2022-06-27T09:42:45.000+00:00
