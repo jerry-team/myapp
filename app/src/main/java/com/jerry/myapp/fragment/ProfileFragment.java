@@ -17,6 +17,8 @@ import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.LoginResponse;
 import com.jerry.myapp.entity.TokenResponse;
+import com.jerry.myapp.util.ParseToken;
+import com.jerry.myapp.util.ParseTokenUtils;
 import com.jerry.myapp.util.StringUtils;
 
 import org.json.JSONException;
@@ -66,7 +68,8 @@ public class ProfileFragment extends BaseFragment {
     @Override
     protected void initData() {
         String token = getStringFromSp("token");
-
+        ParseTokenUtils parsetoken = new ParseTokenUtils();
+        parsetoken.parseToken(token,"sub");
 //        checktoken(token);
 
 
@@ -87,15 +90,7 @@ public class ProfileFragment extends BaseFragment {
 //            }
 //        });
     }
-//    private void gettokentime(String token){//线将token转换为String类型然和将String转换成json然和去解析就好了
-//        String strtoken=new String(Base64.decode(token.split("\\.")[1],0));
-//        try {
-//            JSONObject object = new JSONObject(strtoken);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+
 
 
 
