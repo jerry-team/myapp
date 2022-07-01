@@ -9,5 +9,9 @@ public class ApiConfig {
     public static final String CHECK_TOKEN = "/user/checktoken"; //判断token是否过期
     public static final int PAGE_SIZE = 2;
     public static final String Goods_LIST_PAGE = "/commodity/pageQuery";//商品分页查询
+    public static final String NICKNAME ="/user/nickname";//获取昵称
+    public static final String EDITNICKNAME="/user/editnickname";//修改昵称
+    public static final String EDITEMAIL="/user/editemail";//修改邮箱
+    public static final String EDITPHONE="/user/editphone";//修改电话
 
 }

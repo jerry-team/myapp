@@ -140,8 +140,8 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(),"账号必须小于16位",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (register.getRusername().length()<8 ) {
-            Toast.makeText(getApplicationContext(),"账号必须大于8位",Toast.LENGTH_SHORT).show();
+        if (register.getRusername().length()<6 ) {
+            Toast.makeText(getApplicationContext(),"账号必须大于6位",Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity {
                 Gson gson = new Gson();
                 LoginResponse loginResponse = gson.fromJson(res, LoginResponse.class);
                 if (loginResponse.getCode() == 200) {
-//                    removeByKey("token");
+//                  removeByKey("token");
                     String token = loginResponse.getData().getToken();
                     saveStringToSp("token",token);
                     navigateTo(HomeActivity.class);//放在showToastSync之前

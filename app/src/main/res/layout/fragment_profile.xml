@@ -67,8 +67,8 @@
                     android:drawableLeft="@mipmap/state_icon1"
                     android:text="普通用户"
                     android:drawablePadding="-5dp"
-                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="5dp"
+                    android:paddingLeft="4dp"
                     android:layout_below="@+id/user_name"
                     android:layout_toRightOf="@+id/person_icon"
                     android:layout_alignLeft="@id/user_name"
@@ -89,6 +89,7 @@
             android:clickable="true"
             app:cardBackgroundColor="@color/transparency_grey">
             <RelativeLayout
+                android:id="@+id/state_card"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:gravity="center"
