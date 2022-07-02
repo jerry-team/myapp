@@ -14,5 +14,6 @@
     <color name="transparency">#00FDF1F1</color>
     <color name="transparency_grey">#B2FFFFFF</color>
     <color name="transparency_deep_grey">#A85F5A5A</color>
+    <color name="vip_color">#432502</color>
 
 </resources>
