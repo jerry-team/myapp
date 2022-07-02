@@ -21,7 +21,7 @@ public class GoodsEntity implements Serializable {
     private String updateTime;
     private String name;
     private double price;
-    private String desription;
+    private String description;
     private int category;
     private int number;
     private String imgurl;
@@ -67,12 +67,12 @@ public class GoodsEntity implements Serializable {
         this.price = price;
     }
 
-    public String getDesription() {
-        return desription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesription(String desription) {
-        this.desription = desription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getCategory() {

@@ -20,6 +20,7 @@ import static android.content.Context.MODE_PRIVATE;
 public abstract class BaseFragment extends Fragment {
 
     protected View mRootView;
+
 //    private Unbinder unbinder;
 
     @Nullable

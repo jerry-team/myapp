@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.jerry.myapp.R;
 import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.activity.LoginActivity;
+import com.jerry.myapp.activity.PeripheryActivity;
 import com.jerry.myapp.adapter.CategoryAdapter;
 import com.jerry.myapp.adapter.GoodsAdapter;
 import com.jerry.myapp.api.Api;
@@ -58,6 +59,7 @@ public class GoodsFragment extends BaseFragment {
         return fragment;
     }
 
+
     @Override
     protected int initLayout() {
         if(categoryId == 0)
@@ -70,32 +72,44 @@ public class GoodsFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        if(categoryId == 0)
-        {
+        if(categoryId == 0) {
             banner = mRootView.findViewById(R.id.banner);
             useBanner();
         }
-        mRecyclerViewCategory = mRootView.findViewById(R.id.recyclerView_category);
+        if(categoryId <= 1){
+            mRecyclerViewCategory = mRootView.findViewById(R.id.recyclerView_category);
+            refreshLayout = mRootView.findViewById(R.id.refreshLayout);
+        }
+
         mRecyclerView = mRootView.findViewById(R.id.recyclerView);
-        refreshLayout = mRootView.findViewById(R.id.refreshLayout);
+
     }
 
     @Override
     protected void initData() {
         StaggeredGridLayoutManager gridLayoutManager1 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        StaggeredGridLayoutManager gridLayoutManager2 = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager1);
-        mRecyclerViewCategory.setLayoutManager(gridLayoutManager2);
+        if(categoryId <= 1) {
+            StaggeredGridLayoutManager gridLayoutManager2 = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerViewCategory.setLayoutManager(gridLayoutManager2);
+            mAdapter_category = new CategoryAdapter(getActivity());
+            getCategoryList();
+            mAdapter_category.setDatas(categoryEntityList);
+            mRecyclerViewCategory.setAdapter(mAdapter_category);
+            mAdapter_category.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Serializable obj) {
+                    navigateTo(PeripheryActivity.class);
+                }
+            });
+        }
 
         mAdapter = new GoodsAdapter(getActivity());
         getGoods();
         mRecyclerView.setAdapter(mAdapter);
 //        testGoodsList(true);
 
-        mAdapter_category = new CategoryAdapter(getActivity());
-        getCategoryList();
-        mAdapter_category.setDatas(categoryEntityList);
-        mRecyclerViewCategory.setAdapter(mAdapter_category);
+
 
         mAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
             @Override

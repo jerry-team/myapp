@@ -19,20 +19,28 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
     private List<CategoryEntity> categoryEntityList;
     private Context mContext;
-    private GoodsAdapter.OnItemClickListener mOnItemClickListener;
+    private static CategoryAdapter.OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(GoodsAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(CategoryAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView categoryIcon;
         TextView categoryText;
+        private CategoryEntity categoryEntity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryIcon = (ImageView) itemView.findViewById(R.id.category_icon);
             categoryText = (TextView) itemView.findViewById(R.id.category_text);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(categoryEntity);
+                }
+            });
+
         }
     }
 
@@ -58,6 +66,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         CategoryEntity categoryEntity = categoryEntityList.get(position);
         holder.categoryText.setText(categoryEntity.getName());
         holder.categoryIcon.setImageResource(R.mipmap.ic_launcher_round);
+        holder.categoryEntity = categoryEntity;
 
 
 

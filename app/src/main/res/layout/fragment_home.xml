@@ -34,6 +34,8 @@
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusableInTouchMode="false"
                 android:layout_marginLeft="11dp"
                 android:hint="请输入关键字"
                 android:textColor="@color/black"

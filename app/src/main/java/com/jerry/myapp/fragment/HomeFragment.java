@@ -3,6 +3,9 @@ package com.jerry.myapp.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -10,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
+import com.jerry.myapp.activity.SearchHomeActivity;
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
@@ -35,6 +39,7 @@ public class HomeFragment extends BaseFragment {
     private ViewPager viewPager;
     private SlidingTabLayout slidingTabLayout;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private EditText et_search;
     private CategoryResponse categoryResponse;
     private String[] mTitles;
 
@@ -71,11 +76,20 @@ public class HomeFragment extends BaseFragment {
     protected void initView() {
         viewPager = mRootView.findViewById(R.id.fixedViewPager);
         slidingTabLayout = mRootView.findViewById(R.id.slidingTabLayout);
+        et_search = mRootView.findViewById(R.id.et_search);
     }
 
     @Override
     protected void initData() {
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo(SearchHomeActivity.class);
+//                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
         getCategoryList();
+
     }
 
     private void getCategoryList(){

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.jerry.myapp.R;
@@ -17,6 +18,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 public class GoodsDetailActivity extends BaseActivity {
 
     private CommonTitleBar titleBar;
+    private RelativeLayout rlShop;
 
     @Override
     protected int initLayout() {
@@ -26,6 +28,7 @@ public class GoodsDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         titleBar = findViewById(R.id.titlebar);
+        rlShop = findViewById(R.id.rl_shop);
     }
 
     @Override
@@ -47,6 +50,15 @@ public class GoodsDetailActivity extends BaseActivity {
                 // CommonTitleBar.ACTION_SEARCH_VOICE;     // 语音按钮被点击
                 // CommonTitleBar.ACTION_SEARCH_DELETE;    // 搜索删除按钮被点击
                 // CommonTitleBar.ACTION_CENTER_TEXT;      // 中间文字点击
+            }
+        });
+
+        rlShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bd = new Bundle();
+                bd.putInt("commodityId",2);
+                navigateToWithBundle(ShopDetailActivity.class,bd);
             }
         });
 

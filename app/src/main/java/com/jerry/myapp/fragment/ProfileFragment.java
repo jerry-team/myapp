@@ -17,7 +17,6 @@ import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.LoginResponse;
 import com.jerry.myapp.entity.TokenResponse;
-import com.jerry.myapp.util.ParseToken;
 import com.jerry.myapp.util.ParseTokenUtils;
 import com.jerry.myapp.util.StringUtils;
 
@@ -69,7 +68,7 @@ public class ProfileFragment extends BaseFragment {
     protected void initData() {
         String token = getStringFromSp("token");
         ParseTokenUtils parsetoken = new ParseTokenUtils();
-        parsetoken.parseToken(token,"sub");
+//        parsetoken.parseToken(token,"sub");
 //        checktoken(token);
 
 

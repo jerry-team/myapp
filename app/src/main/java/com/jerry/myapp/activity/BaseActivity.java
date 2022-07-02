@@ -43,6 +43,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(in);
     }
 
+    public void navigateToWithBundle(Class cls, Bundle bundle){//带参数跳转
+        Intent in = new Intent(mContext, cls);
+        in.putExtras(bundle);
+        startActivity(in);
+    }
+
     protected void saveStringToSp(String key, String val) {
         SharedPreferences sp = getSharedPreferences("sp_ttit", MODE_PRIVATE);//保存在sp_ttit.xml文件中
         SharedPreferences.Editor editor = sp.edit();
