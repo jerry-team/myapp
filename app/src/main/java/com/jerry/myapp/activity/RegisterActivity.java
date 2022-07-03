@@ -182,7 +182,7 @@ public class RegisterActivity extends BaseActivity {
         params.put("rpassword", register.getRpwd());
         params.put("remail", register.getRemail());
         params.put("rphone", register.getRphone());
-        Api.config(ApiConfig.REGISTER, params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.REGISTER, params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 Log.e("onSuccess", res);

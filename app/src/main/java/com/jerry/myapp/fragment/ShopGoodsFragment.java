@@ -4,6 +4,7 @@ package com.jerry.myapp.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -71,35 +72,73 @@ public class ShopGoodsFragment extends BaseFragment {
     protected void initData() {
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        System.out.println(getActivity());
+//        System.out.println(getActivity());
         mAdapter = new ShopGoodsAdapter(getActivity());
-        getGoods();
+//        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+//        GoodsEntity tgd = new GoodsEntity();
+//        List<GoodsEntity> list = new ArrayList<>();
+//        tgd.setCategory(1);
+//        tgd.setCreateTime("222");
+//        tgd.setDescription("asdasd");
+//        tgd.setId(8);
+//        tgd.setImgurl("asdasd");
+//        tgd.setName("咬人的狗");
+//        tgd.setNumber(1);
+//        tgd.setPrice(20000);
+//        tgd.setUpdateTime("111");
+//        tgd.setVideourl("asd");
+//        list.add(tgd);
+//        mAdapter.setDatas(list);
+//        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+        getGoods();
 
     }
 
 
-    public void getGoods() {
+    private void getGoods() {
         String token = getStringFromSp("token");
         if (!StringUtils.isEmpty(token)) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("token", token);
-            Api.config("/commodity/list", params).postRequest(new TtitCallback() {
+            Api.config("/commodity/list", params).postRequest(getActivity(),new TtitCallback() {
                 @Override
                 public void onSuccess(final String res) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.e("onSuccess", res);
+                            Log.e("onSuccess123123", res);
                             GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
-                            List<GoodsEntity> list = response.getData();
-                            goodsEntityList = list;
-                            mAdapter.setDatas(goodsEntityList);
+                            List<GoodsEntity> list = new ArrayList<>();
+                            goodsEntityList = response.getData();
+                            GoodsEntity tgd = new GoodsEntity();
+                            tgd.setCategory(1);
+                            tgd.setCreateTime("222");
+                            tgd.setDescription("asdasd");
+                            tgd.setId(8);
+                            tgd.setImgurl("asdasd");
+                            tgd.setName("咬人的狗");
+                            tgd.setNumber(1);
+                            tgd.setPrice(20000);
+                            tgd.setUpdateTime("111");
+                            tgd.setVideourl("asd");
+                            list.add(tgd);
+                            for(GoodsEntity gd:goodsEntityList)
+                            {
+                                System.out.println("this is real:" + gd.getName());
+                                list.add(gd);
+                            }
+                            for(GoodsEntity ttgd:list)
+                            {
+                                System.out.println("what:" + ttgd.getName());
+                            }
+
+                            mAdapter.setDatas(list);
                             mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
                         }
                     });
-                }
+
+               }
 
                 @Override
                 public void onFailure(Exception e) {

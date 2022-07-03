@@ -1,17 +1,23 @@
 package com.jerry.myapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.huawei.hms.hwid.I;
 import com.jerry.myapp.R;
+import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.entity.GoodsEntity;
 
 import java.io.Serializable;
@@ -20,7 +26,7 @@ import java.util.List;
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
     private List<GoodsEntity> goodsEntityList;
     private Context mContext;
-    private String price = "";
+    private String price = "￥";
     private static OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -66,14 +72,19 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
                 .inflate(R.layout.goods_item_one,parent,false);
         ViewHolder holder = new ViewHolder(view);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                int position = holder.getAdapterPosition();
-//                GoodsEntity goodsEntity = goodsEntityList.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                int position = holder.getAdapterPosition();
+                GoodsEntity goodsEntity = goodsEntityList.get(position);
+                Intent in = new Intent(mContext, GoodsDetailActivity.class);
+                Bundle bd = new Bundle();
+                bd.putInt("commodityId",goodsEntity.getId());
+                in.putExtras(bd);
+                mContext.startActivity(in);
 //                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+            }
+        });
         return holder;
     }
 
@@ -82,15 +93,10 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
         GoodsEntity goodsEntity = goodsEntityList.get(position);
         holder.goodsTitle.setText(goodsEntity.getName());
         holder.goodsPrice.setText(price + goodsEntity.getPrice());
-//        Bitmap bitmap = BitmapFactory.decodeFile("/petsImage/cat_muppet.png");
-        holder.goodsImage.setImageResource(R.mipmap.cat1);
+//        holder.goodsImage.setImageResource(R.mipmap.cat1);
         holder.goodsEntity = goodsEntity;
-//        holder.goodsImage.setImageBitmap(bitmap);
-
-//        Glide.with(this.mContext).load("https://s1.xoimg.com/i/2022/06/27/i7ja5g.png").into(holder.goodsImage);
-
-
-
+//        Glide.with(mContext).load("android.resource://com.jerry.myapp/mipmap/"+R.mipmap.cat2).into(holder.goodsImage);
+        Glide.with(mContext).load("http://10.0.2.2:8001/commodityImages/"+goodsEntity.getImgurl()).into(holder.goodsImage);
     }
 
     @Override

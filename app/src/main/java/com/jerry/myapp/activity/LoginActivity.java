@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("username", account);
         params.put("password", pwd);
-        Api.config(ApiConfig.LOGIN, params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.LOGIN, params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
 //                Log.e("onSuccess", res);

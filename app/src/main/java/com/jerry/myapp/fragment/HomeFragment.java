@@ -96,7 +96,7 @@ public class HomeFragment extends BaseFragment {
         String token = getStringFromSp("token");
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("token", token);
-        Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
 

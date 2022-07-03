@@ -1,7 +1,11 @@
 package com.jerry.myapp.api;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -16,7 +20,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import com.jerry.myapp.activity.LoginActivity;
 import com.jerry.myapp.util.StringUtils;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Api {
     public static Api api = new Api();
@@ -36,7 +44,9 @@ public class Api {
         return api;
     }
 
-    public void postRequest(final TtitCallback callback){
+    public void postRequest(Context context, final TtitCallback callback) {
+        SharedPreferences sp = context.getSharedPreferences("sp_ttit", MODE_PRIVATE);
+        String token = sp.getString("token", "");
         JSONObject jsonObject = new JSONObject(mParams);
         String jsonStr = jsonObject.toString();
         RequestBody requestBodyJson =
@@ -46,6 +56,7 @@ public class Api {
         Request request = new Request.Builder()
                 .url(requestUrl)
                 .addHeader("contentType", "application/json;charset=UTF-8")
+                .addHeader("token", token)
                 .post(requestBodyJson)
                 .build();
         //第四步创建call回调对象
@@ -59,12 +70,23 @@ public class Api {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {//异步？
+            public void onResponse(Call call, Response response) throws IOException {
                 final String result = response.body().string();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String code = jsonObject.getString("code");
+                    if(code.equals("401")){
+                        Intent in = new Intent(context, LoginActivity.class);
+                        context.startActivity(in);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 callback.onSuccess(result);
             }
         });
     }
+
 
     public void getRequest(final TtitCallback callback) {
 

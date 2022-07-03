@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.jerry.myapp.R;
 import com.jerry.myapp.entity.CategoryEntity;
 
@@ -65,8 +68,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryEntity categoryEntity = categoryEntityList.get(position);
         holder.categoryText.setText(categoryEntity.getName());
-        holder.categoryIcon.setImageResource(R.mipmap.ic_launcher_round);
+
         holder.categoryEntity = categoryEntity;
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.circleCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+//        Glide.diskCacheStrategy(DiskCacheStrategy.ALL);
+//        Glide.get(mContext).clearDiskCache();
+        Glide.with(mContext).load("http://10.0.2.2:8001/categoryIcon/"+categoryEntity.getIconUrl()).apply(requestOptions).into(holder.categoryIcon);
 
 
 

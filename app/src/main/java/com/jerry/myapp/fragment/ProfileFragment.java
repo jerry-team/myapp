@@ -131,7 +131,7 @@ public class ProfileFragment extends BaseFragment {
         String username_ = parseTokenUtils.parseToken(token,"sub");
         Integer status = Integer.parseInt(parseTokenUtils.parseToken(token,"state"));
         params.put("username",username_);
-        Api.config(ApiConfig.NICKNAME,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.NICKNAME,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -182,7 +182,7 @@ public class ProfileFragment extends BaseFragment {
     private void checktoken(String token) {
         HashMap<String,Object> params = new HashMap<String, Object>();
         params.put("token",token);
-        Api.config(ApiConfig.CHECK_TOKEN, params ).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.CHECK_TOKEN, params ).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 Log.e("onSuccess", res);

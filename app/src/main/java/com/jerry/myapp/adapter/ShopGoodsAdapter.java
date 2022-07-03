@@ -21,9 +21,9 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
     private List<GoodsEntity> goodsEntityList;
     private Context mContext;
     private String price = "";
-    private static OnItemClickListener mOnItemClickListener;
+    private static ShopGoodsAdapter.OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(ShopGoodsAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
@@ -53,6 +53,13 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
 
     public void setDatas(List<GoodsEntity> goodsEntityList){
         this.goodsEntityList = goodsEntityList;
+//        for(GoodsEntity dg:this.goodsEntityList){
+//            System.out.println("adapater:" + dg.getName());
+//        }
+    }
+
+    public List<GoodsEntity> getDatas(){
+        return this.goodsEntityList;
     }
 
     public ShopGoodsAdapter(Context context) {

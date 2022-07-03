@@ -17,6 +17,16 @@ public class CategoryEntity implements Serializable {
     private String name;
     private int type;
 
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    private String iconUrl;
+
     public int getId() {
         return id;
     }

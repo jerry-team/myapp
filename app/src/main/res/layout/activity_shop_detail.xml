@@ -21,7 +21,7 @@
         titlebar:leftText="返回"
         titlebar:leftType="textView" />
 
-    <LinearLayout android:id="@+id/sv"
+    <RelativeLayout android:id="@+id/sv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titlebar"
@@ -173,6 +173,13 @@
                 </GridLayout>
             </androidx.cardview.widget.CardView>
 
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerView_d"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_below="@id/detail_card"-->
+<!--                android:scaleType="fitXY"/>-->
+
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/slidingTabLayout"
                 android:layout_width="match_parent"
@@ -195,6 +202,6 @@
                 android:layout_weight="1" />
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
