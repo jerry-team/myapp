@@ -48,23 +48,6 @@ HomeFragment extends BaseFragment {
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @Override
     protected int initLayout() {
@@ -105,14 +88,20 @@ HomeFragment extends BaseFragment {
                             }
                             if (list != null && list.size() > 0) {
                                 mTitles = new String[list.size()+2];
-                                mTitles[0] = "首页";mFragments.add(GoodsFragment.newInstance(0));
-                                mTitles[1] = "推荐";mFragments.add(GoodsFragment.newInstance(1));
+                                mTitles[0] = "首页";
+                                mFragments.add(GoodsFragment.newInstance(0));
+
+
+                                mTitles[1] = "推荐";
+                                mFragments.add(GoodsFragment.newInstance(1));
 
                                 for (int i = 0; i < list.size(); i++) {
                                     mTitles[i+2] = list.get(i).getName();
                                     mFragments.add(GoodsFragment.newInstance(list.get(i).getId()+1));
                                 }
+
                                 viewPager.setOffscreenPageLimit(mFragments.size());
+
                                 viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
                                 slidingTabLayout.setViewPager(viewPager);
                             }
