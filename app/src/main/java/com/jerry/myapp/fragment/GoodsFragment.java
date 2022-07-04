@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.jerry.myapp.R;
 import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.activity.LoginActivity;
+import com.jerry.myapp.activity.PeripheryActivity;
 import com.jerry.myapp.adapter.CategoryAdapter;
 import com.jerry.myapp.adapter.GoodsAdapter;
 import com.jerry.myapp.api.Api;
@@ -24,6 +25,7 @@ import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.GoodsResponse;
 import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.util.StringUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -45,7 +47,7 @@ public class GoodsFragment extends BaseFragment {
     private CategoryAdapter mAdapter_category;
     private Banner banner;
     private List<Integer> images = new ArrayList<>();
-    private RefreshLayout refreshLayout;
+    private SmartRefreshLayout refreshLayout;
     private CategoryResponse categoryResponse;
     private List<CategoryEntity> categoryEntityList = new ArrayList<>();
     private List<GoodsEntity> goodsEntityList = new ArrayList<>();
@@ -56,6 +58,7 @@ public class GoodsFragment extends BaseFragment {
         fragment.categoryId = categoryId;
         return fragment;
     }
+
 
     @Override
     protected int initLayout() {
@@ -69,133 +72,135 @@ public class GoodsFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        if(categoryId == 0)
-        {
+        if(categoryId == 0) {
             banner = mRootView.findViewById(R.id.banner);
+            refreshLayout = mRootView.findViewById(R.id.refreshLayout);
             useBanner();
         }
-        mRecyclerViewCategory = mRootView.findViewById(R.id.recyclerView_category);
-        mRecyclerView = mRootView.findViewById(R.id.recyclerView);
+        if(categoryId <= 1){
+            mRecyclerViewCategory = mRootView.findViewById(R.id.recyclerView_category);
+        }
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
+        mRecyclerView = mRootView.findViewById(R.id.recyclerView);
+
     }
 
     @Override
     protected void initData() {
         StaggeredGridLayoutManager gridLayoutManager1 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        StaggeredGridLayoutManager gridLayoutManager2 = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager1);
-        mRecyclerViewCategory.setLayoutManager(gridLayoutManager2);
+        if(categoryId <= 1) {
+            StaggeredGridLayoutManager gridLayoutManager2 = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerViewCategory.setLayoutManager(gridLayoutManager2);
+            mAdapter_category = new CategoryAdapter(getActivity());
+            getCategoryList();
+            mAdapter_category.setDatas(categoryEntityList);
+            mRecyclerViewCategory.setAdapter(mAdapter_category);
+            mAdapter_category.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Serializable obj) {
+                    navigateTo(PeripheryActivity.class);
+                }
+            });
+        }
 
         mAdapter = new GoodsAdapter(getActivity());
-        getGoods();
+//        getGoods();
         mRecyclerView.setAdapter(mAdapter);
-//        testGoodsList(true);
 
-        mAdapter_category = new CategoryAdapter(getActivity());
-        getCategoryList();
-        mAdapter_category.setDatas(categoryEntityList);
-        mRecyclerViewCategory.setAdapter(mAdapter_category);
+//        mAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Serializable obj) {
+//                navigateTo(GoodsDetailActivity.class);
+//            }
+//        });
 
-        mAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onItemClick(Serializable obj) {
-                navigateTo(GoodsDetailActivity.class);
+            public void onRefresh(RefreshLayout refreshlayout) {
+                pageNum = 1;
+                getGoodsList(true);
             }
         });
-
-
-//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh(RefreshLayout refreshlayout) {
-//                pageNum = 1;
-//                getGoodsList(true);
-//            }
-//        });
-//        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore(RefreshLayout refreshlayout) {
-//                pageNum++;
-//                getGoodsList(false);
-//            }
-//        });
-//        getGoodsList(false);
-
-//        mAdapter.setDatas(goodsEntityList);
-
-
-
-
-
-
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                pageNum++;
+                getGoodsList(false);
+            }
+        });
+        getGoodsList(false);
     }
 
 
 
-//    private void getGoodsList(final boolean isRefresh){
-//        String token = getStringFromSp("token");
-//        if(!StringUtils.isEmpty(token)){
-//            HashMap<String, Object> params = new HashMap<>();
-//            params.put("token", token);
-//            params.put("start", pageNum);
-//            params.put("pageSize", ApiConfig.PAGE_SIZE);
-//            params.put("categoryId", categoryId);
-//            Api.config(ApiConfig.Goods_LIST_PAGE,params).postRequest(new TtitCallback() {
-//                @Override
-//                public void onSuccess(final String res) {
-//
-//                            if(isRefresh){
-//                                refreshLayout.finishRefresh(true);//关闭刷新动画
-//                            }
-//                            else{
-//                                refreshLayout.finishLoadMore(true);
-//                            }
-//                            GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
-//                            if(response != null && response.getCode() == 200){
-//                                List<GoodsEntity> list = response.getData();
-//                                if (list != null && list.size() > 0) {
-//                                    if (isRefresh) {
-//                                        goodsEntityList = list;
-//                                    } else {
-//                                        goodsEntityList.addAll(list);
-//                                    }
-//                                    mAdapter.setDatas(goodsEntityList);
-//                                    mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-//                                }
-////                                else{
-////                                    if(isRefresh){
-////                                        showToast("暂时加载无数据");
-////                                    }
-////                                    else{
-////                                        showToast("没有更多数据");
-////                                    }
-////                                }
-//                            }
-//
-//
-//                }
-//
-//                @Override
-//                public void onFailure(Exception e) {
-//                    if(isRefresh){
-//                        refreshLayout.finishRefresh(true);//关闭刷新动画
-//                    }
-//                    else{
-//                        refreshLayout.finishLoadMore(true);
-//                    }
-//                }
-//            });
-//        }
-//        else{
-//            navigateTo(LoginActivity.class);
-//        }
-//
-//    }
+    private void getGoodsList(final boolean isRefresh){
+        String token = getStringFromSp("token");
+        if(!StringUtils.isEmpty(token)){
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("token", token);
+            params.put("start", pageNum);
+            params.put("pageSize", ApiConfig.PAGE_SIZE);
+            params.put("categoryId", categoryId);
+            Api.config(ApiConfig.Goods_LIST_PAGE,params).postRequest(getActivity(),new TtitCallback() {
+                @Override
+                public void onSuccess(final String res) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(isRefresh){
+                                refreshLayout.finishRefresh(true);//关闭刷新动画
+                            }
+                            else{
+                                refreshLayout.finishLoadMore(true);
+                            }
+                            GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
+                            if(response != null && response.getCode() == 200){
+                                List<GoodsEntity> list = response.getData();
+                                if (list != null && list.size() > 0) {
+                                    if (isRefresh) {
+                                        goodsEntityList = list;
+                                    } else {
+                                        goodsEntityList.addAll(list);
+                                    }
+                                    mAdapter.setDatas(goodsEntityList);
+                                    mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+                                }
+                                else{
+                                    if(isRefresh){
+                                        showToast("暂时加载无数据");
+                                    }
+                                    else{
+                                        showToast("没有更多数据");
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                @Override
+                public void onFailure(Exception e) {
+                    if(isRefresh){
+                        refreshLayout.finishRefresh(true);//关闭刷新动画
+                    }
+                    else{
+                        refreshLayout.finishLoadMore(true);
+                    }
+                }
+            });
+        }
+        else{
+            navigateTo(LoginActivity.class);
+        }
+
+    }
 
     public void getCategoryList(){
         String token = getStringFromSp("token");
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("token", token);
-        Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 Log.e("onSuccess", res);
@@ -226,67 +231,37 @@ public class GoodsFragment extends BaseFragment {
                 .start();
     }
 
-    public void testGoodsList(final boolean isRefresh) {
-        String token = getStringFromSp("token");
-        if (!StringUtils.isEmpty(token)) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("token", token);
-            params.put("start", pageNum);
-            params.put("pageSize", ApiConfig.PAGE_SIZE);
-            params.put("categoryId", categoryId);
-            Api.config(ApiConfig.Goods_LIST_PAGE, params).postRequest(new TtitCallback() {
-                @Override
-                public void onSuccess(final String res) {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-                            GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
-                                List<GoodsEntity> list = response.getData();
-                                goodsEntityList = list;
-                            System.out.println(response.getData());
-                            System.out.println(list);
-                            System.out.println(goodsEntityList);
-                                mAdapter.setDatas(goodsEntityList);
-                                mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-//                            }
-//                    });
-
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                }
-            });
-        } else {
-            navigateTo(LoginActivity.class);
-        }
-    }
-
-    public void getGoods() {
-        String token = getStringFromSp("token");
-        if (!StringUtils.isEmpty(token)) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("token", token);
-            Api.config("/commodity/list", params).postRequest(new TtitCallback() {
-                @Override
-                public void onSuccess(final String res) {
-                    GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
-                    List<GoodsEntity> list = response.getData();
-                    goodsEntityList = list;
-//                    System.out.println(response.getData());
-//                    System.out.println(list);
-//                    System.out.println(goodsEntityList);
-                    mAdapter.setDatas(goodsEntityList);
+//    public void getGoods() {
+//        String token = getStringFromSp("token");
+//        if (!StringUtils.isEmpty(token)) {
+//            HashMap<String, Object> params = new HashMap<>();
+//            params.put("token", token);
+//            Api.config("/commodity/list", params).postRequest(new TtitCallback() {
+//                @Override
+//                public void onSuccess(final String res) {
+//                   getActivity().runOnUiThread(new Runnable() {
+//                       @Override
+//                       public void run() {
+//                           GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
+//                           List<GoodsEntity> list = response.getData();
+//                           goodsEntityList = list;
+////                    System.out.println(response.getData());
+////                    System.out.println(list);
+////                    System.out.println(goodsEntityList);
+//                           mAdapter.setDatas(goodsEntityList);
 //                    mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                }
-            });
-        } else {
-            navigateTo(LoginActivity.class);
-        }
-    }
+//                       }
+//                   });
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Exception e) {
+//                }
+//            });
+//        } else {
+//            navigateTo(LoginActivity.class);
+//        }
+//    }
 
 }

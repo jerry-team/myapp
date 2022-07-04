@@ -1,36 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/refreshLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/goods_card"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#ffffff"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_category"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"/>
-
-
-    </androidx.cardview.widget.CardView>
+        android:id="@+id/refreshLayout">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

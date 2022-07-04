@@ -21,11 +21,48 @@ public class GoodsEntity implements Serializable {
     private String updateTime;
     private String name;
     private double price;
-    private String desription;
+    private String description;
     private int category;
     private int number;
     private String imgurl;
     private Object videourl;
+    private Integer vaccin;
+    private Integer isPedigree;
+    private Integer isPest;
+    private String breed;
+
+
+    public Integer getVaccin() {
+        return vaccin;
+    }
+
+    public void setVaccin(Integer vaccin) {
+        this.vaccin = vaccin;
+    }
+
+    public Integer getIsPedigree() {
+        return isPedigree;
+    }
+
+    public void setIsPedigree(Integer isPedigree) {
+        this.isPedigree = isPedigree;
+    }
+
+    public Integer getIsPest() {
+        return isPest;
+    }
+
+    public void setIsPest(Integer isPest) {
+        this.isPest = isPest;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
 
     public int getId() {
         return id;
@@ -67,12 +104,12 @@ public class GoodsEntity implements Serializable {
         this.price = price;
     }
 
-    public String getDesription() {
-        return desription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesription(String desription) {
-        this.desription = desription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getCategory() {

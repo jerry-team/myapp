@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
-public class TokenResponse {
+import java.io.Serializable;
+
+public class TokenResponse implements Serializable {
     private int code;
     private String msg;
 

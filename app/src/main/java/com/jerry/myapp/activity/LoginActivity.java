@@ -106,10 +106,10 @@ public class LoginActivity extends BaseActivity {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("username", account);
         params.put("password", pwd);
-        Api.config(ApiConfig.LOGIN, params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.LOGIN, params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
-                Log.e("onSuccess", res);
+//                Log.e("onSuccess", res);
                 Gson gson = new Gson();
                 LoginResponse loginResponse = gson.fromJson(res, LoginResponse.class);
                 if (loginResponse.getCode() == 200) {
@@ -152,6 +152,11 @@ public class LoginActivity extends BaseActivity {
                 Log.e(TAG, "sign in failed : " + ((ApiException) authAccountTask.getException()).getStatusCode());
             }
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
 //    private void onHuaweiIdLoginSuccess(AuthAccount authAccount) {

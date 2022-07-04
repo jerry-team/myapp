@@ -19,10 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".activity.PeripheryActivity"></activity>
+        <activity android:name=".activity.ShopDetailActivity" />
+        <activity android:name=".activity.SearchHomeActivity" />
         <activity
             android:name=".activity.GoodsDetailActivity"
             android:label="@string/title_activity_goods_detail"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.HomeActivity" /> <!-- 配置可以访问http -->
         <activity android:name=".activity.RegisterActivity" /> <!-- <activity android:name=".fragment.DetailFragment" /> -->

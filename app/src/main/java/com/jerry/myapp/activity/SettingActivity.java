@@ -257,7 +257,7 @@ public class SettingActivity extends BaseActivity {
         String username_ = parseTokenUtils.parseToken(token,"sub");
         String status = parseTokenUtils.parseToken(token,"role");
         params.put("username",username_);
-        Api.config(ApiConfig.NICKNAME,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.NICKNAME,params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 runOnUiThread(new Runnable() {
@@ -293,7 +293,7 @@ public class SettingActivity extends BaseActivity {
         params.put("username",username_);
         params.put("edit_nickname",edit_nickname);
 
-        Api.config(ApiConfig.EDITNICKNAME,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.EDITNICKNAME,params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 runOnUiThread(new Runnable() {
@@ -326,7 +326,7 @@ public class SettingActivity extends BaseActivity {
         params.put("username",username_);
         params.put("edit_email",edit_email);
 
-        Api.config(ApiConfig.EDITEMAIL,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.EDITEMAIL,params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 runOnUiThread(new Runnable() {
@@ -357,7 +357,7 @@ public class SettingActivity extends BaseActivity {
         String username_ = parseTokenUtils.parseToken(token,"sub");
         params.put("username",username_);
         params.put("edit_phone",edit_phone);
-        Api.config(ApiConfig.EDITPHONE,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.EDITPHONE,params).postRequest(this,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 runOnUiThread(new Runnable() {

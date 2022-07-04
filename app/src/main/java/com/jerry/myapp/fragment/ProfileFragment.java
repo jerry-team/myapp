@@ -21,14 +21,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
+
 import com.jerry.myapp.activity.HomeActivity;
 import com.jerry.myapp.activity.SettingActivity;
+
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.LoginResponse;
 import com.jerry.myapp.entity.TokenResponse;
+
+
 import com.jerry.myapp.entity.UserResponse;
+
 import com.jerry.myapp.util.ParseTokenUtils;
 import com.jerry.myapp.util.StringUtils;
 
@@ -81,6 +86,11 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+        String token = getStringFromSp("token");
+        ParseTokenUtils parsetoken = new ParseTokenUtils();
+//        parsetoken.parseToken(token,"sub");
+
         getNickname();
         username.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +131,7 @@ public class ProfileFragment extends BaseFragment {
         String username_ = parseTokenUtils.parseToken(token,"sub");
         Integer status = Integer.parseInt(parseTokenUtils.parseToken(token,"state"));
         params.put("username",username_);
-        Api.config(ApiConfig.NICKNAME,params).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.NICKNAME,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -172,7 +182,7 @@ public class ProfileFragment extends BaseFragment {
     private void checktoken(String token) {
         HashMap<String,Object> params = new HashMap<String, Object>();
         params.put("token",token);
-        Api.config(ApiConfig.CHECK_TOKEN, params ).postRequest(new TtitCallback() {
+        Api.config(ApiConfig.CHECK_TOKEN, params ).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
                 Log.e("onSuccess", res);

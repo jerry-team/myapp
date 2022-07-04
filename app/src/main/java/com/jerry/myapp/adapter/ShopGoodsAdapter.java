@@ -1,37 +1,29 @@
 package com.jerry.myapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.huawei.hms.hwid.I;
 import com.jerry.myapp.R;
-import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.entity.GoodsEntity;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
+public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.ViewHolder>{
     private List<GoodsEntity> goodsEntityList;
     private Context mContext;
-    private String price = "￥";
-    private static OnItemClickListener mOnItemClickListener;
+    private String price = "";
+    private static ShopGoodsAdapter.OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(ShopGoodsAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
@@ -61,32 +53,34 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
 
     public void setDatas(List<GoodsEntity> goodsEntityList){
         this.goodsEntityList = goodsEntityList;
+//        for(GoodsEntity dg:this.goodsEntityList){
+//            System.out.println("adapater:" + dg.getName());
+//        }
     }
 
-    public GoodsAdapter(Context context) {
+    public List<GoodsEntity> getDatas(){
+        return this.goodsEntityList;
+    }
+
+    public ShopGoodsAdapter(Context context) {
         this.mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.goods_item_one,parent,false);
         ViewHolder holder = new ViewHolder(view);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                int position = holder.getAdapterPosition();
-                GoodsEntity goodsEntity = goodsEntityList.get(position);
-                Intent in = new Intent(mContext, GoodsDetailActivity.class);
-                Bundle bd = new Bundle();
-                bd.putInt("commodityId",goodsEntity.getId());
-                in.putExtras(bd);
-                mContext.startActivity(in);
+//        holder.itemView.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                int position = holder.getAdapterPosition();
+//                GoodsEntity goodsEntity = goodsEntityList.get(position);
 //                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
-            }
-        });
+//            }
+//        });
         return holder;
     }
 
@@ -95,14 +89,15 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
         GoodsEntity goodsEntity = goodsEntityList.get(position);
         holder.goodsTitle.setText(goodsEntity.getName());
         holder.goodsPrice.setText(price + goodsEntity.getPrice());
-//        holder.goodsImage.setImageResource(R.mipmap.cat1);
+//        Bitmap bitmap = BitmapFactory.decodeFile("/petsImage/cat_muppet.png");
+        holder.goodsImage.setImageResource(R.mipmap.cat1);
         holder.goodsEntity = goodsEntity;
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE);
-//        Glide.with(mContext).load("android.resource://com.jerry.myapp/mipmap/"+R.mipmap.cat2).into(holder.goodsImage);
-        Glide.with(mContext).load("http://10.0.2.2:8001/commodityImages/"+goodsEntity.getImgurl()).apply(requestOptions).into(holder.goodsImage);
+//        holder.goodsImage.setImageBitmap(bitmap);
+
+//        Glide.with(this.mContext).load("https://s1.xoimg.com/i/2022/06/27/i7ja5g.png").into(holder.goodsImage);
+
+
+
     }
 
     @Override
