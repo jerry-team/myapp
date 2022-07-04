@@ -71,7 +71,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.categoryEntity = categoryEntity;
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions.circleCrop()
+        requestOptions
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE);
 //        Glide.diskCacheStrategy(DiskCacheStrategy.ALL);

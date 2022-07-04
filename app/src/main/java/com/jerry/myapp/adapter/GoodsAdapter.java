@@ -15,6 +15,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.huawei.hms.hwid.I;
 import com.jerry.myapp.R;
 import com.jerry.myapp.activity.GoodsDetailActivity;
@@ -95,8 +97,12 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
         holder.goodsPrice.setText(price + goodsEntity.getPrice());
 //        holder.goodsImage.setImageResource(R.mipmap.cat1);
         holder.goodsEntity = goodsEntity;
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
 //        Glide.with(mContext).load("android.resource://com.jerry.myapp/mipmap/"+R.mipmap.cat2).into(holder.goodsImage);
-        Glide.with(mContext).load("http://10.0.2.2:8001/commodityImages/"+goodsEntity.getImgurl()).into(holder.goodsImage);
+        Glide.with(mContext).load("http://10.0.2.2:8001/commodityImages/"+goodsEntity.getImgurl()).apply(requestOptions).into(holder.goodsImage);
     }
 
     @Override
