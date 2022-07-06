@@ -88,4 +88,19 @@ public class Constant {
            "\n" +
            "  ]\n" +
            "}";
+   public static final String Address_Json = "{  \"code\" : 200 ,\n" +
+           "  \"addressList\" : [\n" +
+           "    {\n" +
+           "\n" +
+           "      \"name\": \"仙域\",\n" +
+           "      \"shopName\":\"京东自营\",\n" +
+           "    }\n" +
+           "\n" +
+           "  ]\n" +
+           "}";
+   //private Integer id;
+   //        private String name;
+   //        private Integer telephone;
+   //        private String address;
+   //        private Integer defaultAddress;
 }

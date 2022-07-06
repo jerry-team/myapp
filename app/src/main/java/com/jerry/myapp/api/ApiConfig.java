@@ -14,7 +14,8 @@ public class ApiConfig {
     public static final String EDITNICKNAME="/user/editnickname";//修改昵称
     public static final String EDITEMAIL="/user/editemail";//修改邮箱
     public static final String EDITPHONE="/user/editphone";//修改电话
-
+    public static final String ADDADRESS = "/address/add";//添加收货地址
+    public static final String ListAddress = "/address/list";//查询收货地址列表
     public static final String INSERT_SHOP_CART= "/shop-cart/insertByCommodityId";//商品分页查询
 
 }
