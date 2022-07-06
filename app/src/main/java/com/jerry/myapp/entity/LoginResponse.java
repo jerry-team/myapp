@@ -52,6 +52,7 @@ public class LoginResponse implements Serializable {
         private String telephone;
         private String nickname;
         private Object icon;
+        private String email;
         private String token;
 
         public String getUsername() {
@@ -100,6 +101,14 @@ public class LoginResponse implements Serializable {
 
         public void setToken(String token) {
             this.token = token;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
         }
     }
 }

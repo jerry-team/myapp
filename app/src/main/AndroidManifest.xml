@@ -29,7 +29,12 @@
         <activity android:name=".activity.HomeActivity" /> <!-- 配置可以访问http -->
         <activity android:name=".activity.RegisterActivity" /> <!-- <activity android:name=".fragment.DetailFragment" /> -->
         <activity android:name=".activity.SettingActivity" />
+<<<<<<< HEAD
         <activity android:name=".activity.SearchHomeActivity"/>
+=======
+        <activity android:name=".activity.AddressActivity"/>
+        <activity android:name=".activity.AddressAddActivity"/>
+>>>>>>> 4ec7b5e3fba1d20a28db4b0ff67066d16dc6e08a
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
