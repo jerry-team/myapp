@@ -107,10 +107,15 @@ public class CartShopAdapter extends BaseQuickAdapter<ShopCartCommodityResponse.
         int count = goodsBean.getNumber();
 
         if(state){
-            if (count >= inventory){
-                Toast.makeText(mContext,"商品数量不可超过库存值~",Toast.LENGTH_SHORT).show();
+            if(goodsBean.getCategory() != 5)
+            {
+                Toast.makeText(mContext,"宠物为唯一商品！",Toast.LENGTH_SHORT).show();
                 return;
             }
+//            if (count >= inventory){
+//                Toast.makeText(mContext,"商品数量不可超过库存值~",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
             count++;
         }else {
             if (count <= 1){

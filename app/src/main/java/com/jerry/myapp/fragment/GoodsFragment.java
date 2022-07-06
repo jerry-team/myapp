@@ -130,7 +130,7 @@ public class GoodsFragment extends BaseFragment {
                 getGoodsList(false);
             }
         });
-        getGoodsList(false);
+        getGoodsList(true);
     }
 
 

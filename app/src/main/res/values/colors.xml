@@ -15,5 +15,7 @@
     <color name="transparency_grey">#B2FFFFFF</color>
     <color name="transparency_deep_grey">#A85F5A5A</color>
     <color name="vip_color">#432502</color>
+    <color name="fafa">#FAFAFA</color>
+    <color name="des">#999999</color>
 
 </resources>

@@ -45,22 +45,19 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
             goodsTitle = (TextView) itemView.findViewById(R.id.goods_item_title);
             goodsPrice = (TextView) itemView.findViewById(R.id.goods_item_price);
             goodsCard = (CardView) itemView.findViewById(R.id.goods_card);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mOnItemClickListener.onItemClick(goodsEntity);
                 }
             });
-
         }
+
     }
 
     public void setDatas(List<GoodsEntity> goodsEntityList){
         this.goodsEntityList = goodsEntityList;
-//        for(GoodsEntity dg:this.goodsEntityList){
-//            System.out.println("adapater:" + dg.getName());
-//        }
+
     }
 
     public List<GoodsEntity> getDatas(){
@@ -78,14 +75,6 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
                 .inflate(R.layout.goods_item_one,parent,false);
         ViewHolder holder = new ViewHolder(view);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                int position = holder.getAdapterPosition();
-//                GoodsEntity goodsEntity = goodsEntityList.get(position);
-//                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
-//            }
-//        });
         return holder;
     }
 
@@ -97,11 +86,6 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
 //        Bitmap bitmap = BitmapFactory.decodeFile("/petsImage/cat_muppet.png");
         holder.goodsImage.setImageResource(R.mipmap.cat1);
         holder.goodsEntity = goodsEntity;
-//        holder.goodsImage.setImageBitmap(bitmap);
-
-//        Glide.with(this.mContext).load("https://s1.xoimg.com/i/2022/06/27/i7ja5g.png").into(holder.goodsImage);
-
-
 
     }
 

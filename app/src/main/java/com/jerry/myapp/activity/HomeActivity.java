@@ -20,11 +20,11 @@ public class HomeActivity extends BaseActivity {
 
     private String[] mTitles = {"首页", "周边商店", "购物车", "个人中心"};
     private int[] mIconUnselectIds = {
-            R.mipmap.icon1, R.mipmap.icon2,
-            R.mipmap.icon3, R.mipmap.icon4};
+            R.mipmap.home_unclick, R.mipmap.store_unclick,
+            R.mipmap.shopcart_unclick, R.mipmap.my_unclick};
     private int[] mIconSelectIds = {
-            R.mipmap.icon1_1, R.mipmap.icon2_1,
-            R.mipmap.icon3_1, R.mipmap.icon4_1};
+            R.mipmap.home,R.mipmap.store,
+            R.mipmap.shopcart,R.mipmap.my};
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 

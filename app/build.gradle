@@ -129,6 +129,9 @@ dependencies {
     //动态库组件
     implementation 'com.huawei.hms:dynamic-api:1.0.17.300'
 
+    implementation 'com.google.android:flexbox:1.1.0'
+
+
 
 
 }

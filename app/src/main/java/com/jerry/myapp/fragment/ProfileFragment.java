@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.jerry.myapp.R;
 
+import com.jerry.myapp.activity.AddressActivity;
 import com.jerry.myapp.activity.HomeActivity;
 import com.jerry.myapp.activity.SettingActivity;
 
@@ -54,6 +55,7 @@ public class ProfileFragment extends BaseFragment {
     private TextView ad_text1,ad_text2;
     private Button ad_state;
     private RelativeLayout stete_card;
+    private ImageView address_icon;
 
 
     public static ProfileFragment newInstance() {
@@ -77,6 +79,8 @@ public class ProfileFragment extends BaseFragment {
         ad_text2 = mRootView.findViewById(R.id.advert_text2);
         ad_state = mRootView.findViewById(R.id.btn_endrose);
         stete_card = mRootView.findViewById(R.id.state_card);
+        //地址管理id=icon_6
+        address_icon =mRootView.findViewById(R.id.icon_6);
     }
 
 //    @Override
@@ -103,6 +107,10 @@ public class ProfileFragment extends BaseFragment {
             public void onClick(View v) {
                 navigateTo(SettingActivity.class);
             }
+        });
+        address_icon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){ navigateTo(AddressActivity.class); }
         });
 
 //        checktoken(token);
