@@ -1,11 +1,10 @@
 package com.jerry.myapp.fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -19,9 +18,7 @@ import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.CategoryEntity;
 import com.jerry.myapp.entity.CategoryResponse;
-import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.adapter.HomeAdapter;
-import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +65,6 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 navigateTo(SearchHomeActivity.class);
-//                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
             }
         });
         getCategoryList();
@@ -111,7 +107,6 @@ public class HomeFragment extends BaseFragment {
                                 }
 
                                 viewPager.setOffscreenPageLimit(mFragments.size());
-
                                 viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
                                 slidingTabLayout.setViewPager(viewPager);
                             }

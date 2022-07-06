@@ -13,6 +13,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> mFragments;
     private GoodsAdapter.OnItemClickListener mOnItemClickListener;
 
+
     public void setOnItemClickListener(GoodsAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
