@@ -7,18 +7,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HomeAdapter extends FragmentPagerAdapter {
+public class SearchAdapter extends FragmentPagerAdapter {
 
     private String[] mTitles;
     private ArrayList<Fragment> mFragments;
     private GoodsAdapter.OnItemClickListener mOnItemClickListener;
 
-
     public void setOnItemClickListener(GoodsAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    public HomeAdapter(FragmentManager fm, String[] titles, ArrayList<Fragment> fragments) {
+    public SearchAdapter(FragmentManager fm, String[] titles, ArrayList<Fragment> fragments) {
         super(fm);
         this.mTitles = titles;
         this.mFragments = fragments;

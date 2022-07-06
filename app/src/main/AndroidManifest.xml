@@ -21,7 +21,6 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".activity.PeripheryActivity"></activity>
         <activity android:name=".activity.ShopDetailActivity" />
-        <activity android:name=".activity.SearchHomeActivity" />
         <activity
             android:name=".activity.GoodsDetailActivity"
             android:label="@string/title_activity_goods_detail"
@@ -30,8 +29,12 @@
         <activity android:name=".activity.HomeActivity" /> <!-- 配置可以访问http -->
         <activity android:name=".activity.RegisterActivity" /> <!-- <activity android:name=".fragment.DetailFragment" /> -->
         <activity android:name=".activity.SettingActivity" />
+
+        <activity android:name=".activity.SearchHomeActivity"/>
+
         <activity android:name=".activity.AddressActivity"/>
         <activity android:name=".activity.AddressAddActivity"/>
+
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

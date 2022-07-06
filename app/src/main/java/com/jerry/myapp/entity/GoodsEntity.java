@@ -30,7 +30,7 @@ public class GoodsEntity implements Serializable {
     private Integer isPedigree;
     private Integer isPest;
     private String breed;
-
+    private String shopName;
 
     public Integer getVaccin() {
         return vaccin;
@@ -142,5 +142,13 @@ public class GoodsEntity implements Serializable {
 
     public void setVideourl(Object videourl) {
         this.videourl = videourl;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }

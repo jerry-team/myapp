@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SearchHomeActivity"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginTop="20dp"
+            >
+            <ImageView
+                android:id="@+id/return_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="-3dp"
+                android:src="@mipmap/return_left"
+                android:clickable="true">
+            </ImageView>
+            <EditText
+                android:id="@+id/search_good_edit"
+                android:layout_width="320dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/return_home"
+                android:layout_centerHorizontal="true"
+                android:hint="请输入关键字"
+                android:textColor="@color/black"
+                android:background="@drawable/shape_search_box"
+                android:drawableLeft="@mipmap/search2"
+                android:drawablePadding="5dp"
+                android:textColorHint="#737373"
+                android:paddingLeft="10dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/search_button_go"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="搜索"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@+id/search_good_edit"
+                android:layout_marginLeft="10dp"
+                android:textSize="17dp"
+                android:layout_marginBottom="-100dp"
+                android:clickable="true"
+                android:src="@mipmap/return_left">
+            </TextView>
+        </RelativeLayout>
+
+<!--        <com.flyco.tablayout.SlidingTabLayout-->
+<!--            android:id="@+id/slidingTabLayout_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            tl:tl_indicator_corner_radius="1.5dp"-->
+<!--            tl:tl_indicator_height="3dp"-->
+<!--            tl:tl_indicator_width="35dp"-->
+<!--            tl:tl_textSelectColor="@color/black"-->
+<!--            tl:tl_textUnselectColor="#BCB8C0"-->
+<!--            tl:tl_indicator_color="#228EFA"-->
+<!--            tl:tl_tab_space_equal="true"-->
+<!--            tl:tl_textsize="16sp" />-->
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/search_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="visible"
+        >
+        <TextView
+            android:id="@+id/history_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史搜索"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            />
+        <ImageView
+            android:id="@+id/history_search_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/delete_search"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:clickable="true"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_search_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/history_search_title"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:id="@+id/often_search_title"
+            android:layout_below="@id/history_search_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="常用搜索"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+
+            />
+        <ToggleButton
+            android:id="@+id/often_search_visibility"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/often_search_title"
+            android:clickable="true"
+            android:textOn=""
+            android:checked="true"
+            android:textOff=""
+            android:background="@mipmap/on_pwd" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/often_search_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/often_search_title"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="16dp" />
+
+    </RelativeLayout>
+<!--    <com.jerry.myapp.view.FixedViewPager-->
+<!--        android:id="@+id/fixedViewPager_search"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
+    <ListView
+        android:id="@+id/search_good_list"
+        android:visibility="invisible"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="6dp"
+        android:divider="#F3F3F3" />
+<!--    <TextView-->
+<!--        android:id="@+id/search_tv_empty"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/date_empty"-->
+<!--        android:gravity="center"-->
+<!--        android:textSize="20sp"-->
+<!--        android:drawableTop="@mipmap/it_searchtext"-->
+<!--        android:layout_marginTop="250dp"/>-->
+
+
+</LinearLayout>

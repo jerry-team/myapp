@@ -18,4 +18,12 @@ public class ApiConfig {
     public static final String ListAddress = "/address/list";//查询收货地址列表
     public static final String INSERT_SHOP_CART= "/shop-cart/insertByCommodityId";//商品分页查询
 
+    public static final String SEARCHGOODS= "/search/pageQuery"; //商品搜索，分页加载，瀑布刷新
+
+    public static final String  HISTORYSEARCH="/search/showSearchByTimeLimit"; //历史搜索
+    public static final String  OFTENSEARCH="/search/showSearchByNumLimit"; //常用搜索
+    public static final String DELETESEARCH="/search/deleteAllSearchById"; //删除所有搜索记录
+    public static final String DELETESEARCH_CHECK=""; //删除选中的搜索标签
+
+
 }

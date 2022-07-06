@@ -1,11 +1,10 @@
 package com.jerry.myapp.fragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -19,9 +18,7 @@ import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.CategoryEntity;
 import com.jerry.myapp.entity.CategoryResponse;
-import com.jerry.myapp.loader.GlideImageLoader;
 import com.jerry.myapp.adapter.HomeAdapter;
-import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,23 +46,6 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @Override
     protected int initLayout() {
@@ -85,7 +65,6 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 navigateTo(SearchHomeActivity.class);
-//                Toast.makeText(v.getContext(),"you clicked",Toast.LENGTH_SHORT).show();
             }
         });
         getCategoryList();
@@ -115,13 +94,18 @@ public class HomeFragment extends BaseFragment {
                             }
                             if (list != null && list.size() > 0) {
                                 mTitles = new String[list.size()+2];
-                                mTitles[0] = "首页";mFragments.add(GoodsFragment.newInstance(0));
-                                mTitles[1] = "推荐";mFragments.add(GoodsFragment.newInstance(1));
+                                mTitles[0] = "首页";
+                                mFragments.add(GoodsFragment.newInstance(0));
+
+
+                                mTitles[1] = "推荐";
+                                mFragments.add(GoodsFragment.newInstance(1));
 
                                 for (int i = 0; i < list.size(); i++) {
                                     mTitles[i+2] = list.get(i).getName();
                                     mFragments.add(GoodsFragment.newInstance(list.get(i).getId()+1));
                                 }
+
                                 viewPager.setOffscreenPageLimit(mFragments.size());
                                 viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
                                 slidingTabLayout.setViewPager(viewPager);
