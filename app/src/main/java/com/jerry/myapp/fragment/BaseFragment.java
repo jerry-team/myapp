@@ -17,20 +17,23 @@ import androidx.fragment.app.Fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public abstract class BaseFragment extends Fragment {
 
     protected View mRootView;
-
-//    private Unbinder unbinder;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(initLayout(), container, false);
+            unbinder = ButterKnife.bind(this, mRootView);
             initView();
         }
-//        unbinder = ButterKnife.bind(this, mRootView);
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -50,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+        unbinder.unbind();
     }
 
     public void showToast(String msg){

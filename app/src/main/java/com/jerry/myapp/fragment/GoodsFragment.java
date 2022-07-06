@@ -203,17 +203,24 @@ public class GoodsFragment extends BaseFragment {
         Api.config(ApiConfig.CATEGORY_LIST,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
-                Log.e("onSuccess", res);
-                Gson gson = new Gson();
-                CategoryResponse categoryResponse = gson.fromJson(res, CategoryResponse.class);
-                if (categoryResponse.getCode() == 200) {
-                    for(CategoryEntity category:categoryResponse.getData()){
-                        if(category.getType() == 1)
-                            categoryEntityList.add(category);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("onSuccess", res);
+                        Gson gson = new Gson();
+                        CategoryResponse categoryResponse = gson.fromJson(res, CategoryResponse.class);
+                        if (categoryResponse.getCode() == 200) {
+                            for(CategoryEntity category:categoryResponse.getData()){
+                                if(category.getType() == 1)
+                                    categoryEntityList.add(category);
+                            }
+                            mAdapter_category.notifyDataSetChanged();
+                        } else {
+                            showToastSync(categoryResponse.getMsg());
+                        }
                     }
-                } else {
-                    showToastSync(categoryResponse.getMsg());
-                }
+                });
+
             }
             @Override
             public void onFailure(Exception e) {

@@ -43,6 +43,13 @@
                 android:src="@mipmap/cat3"
                 android:scaleType="fitXY"/>
 
+            <SurfaceView
+                android:id="@+id/surface_view"
+                android:layout_height="200dp"
+                android:layout_width="match_parent">
+
+            </SurfaceView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +64,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -66,7 +73,7 @@
                     android:layout_marginTop="5dp"
                     android:text="新品秒杀"
                     android:textColor="#d49d77"
-                    android:textSize="16dp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/detail_price"
@@ -75,7 +82,7 @@
                     android:layout_marginTop="3dp"
                     android:text="5000"
                     android:textColor="@color/price"
-                    android:textSize="30dp" />
+                    android:textSize="26dp" />
 
                 <TextView
                     android:id="@+id/detail_description"
@@ -85,7 +92,7 @@
                     android:textStyle="bold"
                     android:text="这是一条贼牛逼的猫，买了能咬人，再也不用怕打架打不过!"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:text="该商品入选本店人气收藏榜 第1名"
                         android:textColor="@color/price"
-                        android:textSize="20dp" />
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -189,7 +196,7 @@
 
 
             <GridLayout
-                android:layout_width="match_parent"
+                android:layout_width="1000dp"
                 android:layout_height="wrap_content"
                 android:columnCount="5"
                 android:orientation="horizontal">
@@ -197,9 +204,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="10dp"
                     android:text="参数"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
                 <TextView
@@ -209,7 +216,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="1针"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -219,7 +226,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="有血统证书"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -229,7 +236,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="已做"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"/>
 
@@ -240,7 +247,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="英国短猫"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"/>
 
@@ -251,7 +258,7 @@
                     android:layout_marginLeft="6dp"
                     android:layout_column="1"
                     android:text="疫苗"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_marginTop="1dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
@@ -262,7 +269,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="血统证书"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_marginTop="1dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
@@ -273,7 +280,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="6dp"
                     android:text="驱虫"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_marginTop="1dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
@@ -284,7 +291,7 @@
                     android:layout_centerVertical="true"
                     android:text="品种"
                     android:layout_marginLeft="6dp"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_marginTop="1dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
@@ -293,9 +300,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="10dp"
                     android:text="送至"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_margin="10dp"
                     android:textColor="#b5b5b5"/>
 
@@ -314,9 +321,8 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="fill"
                         android:layout_rowWeight="1"
-                        android:layout_marginLeft="6dp"
                         android:text="福建省厦门市集美区厦门理工学院一期宿舍"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         android:layout_margin="10dp"
                         android:textColor="#b5b5b5"/>
                 </RelativeLayout>

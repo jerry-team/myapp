@@ -47,7 +47,7 @@
                 android:textColor="#000"
                 android:textSize="16sp" />
         </androidx.appcompat.widget.Toolbar>
-        <!--下拉刷新区域-->
+        下拉刷新区域
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refresh"
             android:layout_width="match_parent"

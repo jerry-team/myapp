@@ -6,11 +6,15 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.jerry.myapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
 
 
     }
@@ -118,6 +122,12 @@ dependencies {
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
 
     implementation 'com.github.HanHuoBin:BaseDialog:1.2.0'
+
+    //华为视频服务
+    implementation 'com.huawei.hms:videokit-player:1.0.10.303'
+//    implementation 'com.huawei.hms:videokit-player-fallback:1.0.10.300'
+    //动态库组件
+    implementation 'com.huawei.hms:dynamic-api:1.0.17.300'
 
 
 

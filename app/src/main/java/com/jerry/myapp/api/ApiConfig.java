@@ -16,5 +16,10 @@ public class ApiConfig {
     public static final String EDITPHONE="/user/editphone";//修改电话
 
     public static final String INSERT_SHOP_CART= "/shop-cart/insertByCommodityId";//商品分页查询
+    public static final String GETSHOPDETAIL= "/shop/getByCommodityId";//商店详情信息查询
+
+    public static final String LISTSHOPCART="/shop-cart/listShop";//购物车获取商品
+    public static final String DELSHOPCART="/shop-cart/delList";//购物车删除商品
+
 
 }

@@ -30,7 +30,15 @@ public class GoodsEntity implements Serializable {
     private Integer isPedigree;
     private Integer isPest;
     private String breed;
+    private boolean isChecked;
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public Integer getVaccin() {
         return vaccin;

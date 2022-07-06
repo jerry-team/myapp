@@ -11,6 +11,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jerry.myapp.R;
 import com.jerry.myapp.entity.CarResponse;
+import com.jerry.myapp.entity.GoodsEntity;
+import com.jerry.myapp.entity.ShopCartCommodityResponse;
 import com.jerry.myapp.util.GoodsCallback;
 
 import java.util.List;
@@ -20,26 +22,33 @@ import java.util.List;
  *
  * @author llw
  */
-public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean, BaseViewHolder> {
+public class CartShopAdapter extends BaseQuickAdapter<ShopCartCommodityResponse.ShopBean, BaseViewHolder> {
 
     private RecyclerView rvGood;
     //商品回调
     private GoodsCallback goodsCallback;
     //店铺对象
-    private List<CarResponse.OrderDataBean> storeBean;
+    private List<ShopCartCommodityResponse.ShopBean> storeBean;
 
-    public CartShopAdapter(int layoutResId, @Nullable List<CarResponse.OrderDataBean> data, GoodsCallback goodsCallback) {
+    public CartShopAdapter(int layoutResId, @Nullable List<ShopCartCommodityResponse.ShopBean> data, GoodsCallback goodsCallback) {
         super(layoutResId, data);
         this.goodsCallback = goodsCallback;
         storeBean = data;//赋值
     }
+//    public CartShopAdapter(int layoutResId,GoodsCallback goodsCallback) {
+//        super(layoutResId);
+//        this.goodsCallback = goodsCallback;
+//    }
 
+    public void setData(List<ShopCartCommodityResponse.ShopBean> data){
+        this.storeBean = data;
+    }
 
     @Override
-    protected void convert(BaseViewHolder helper, final CarResponse.OrderDataBean item) {
+    protected void convert(BaseViewHolder helper, final ShopCartCommodityResponse.ShopBean item) {
 
         rvGood = helper.getView(R.id.rv_goods);
-        helper.setText(R.id.tv_store_name, item.getShopName());
+        helper.setText(R.id.tv_store_name, item.getName());
 
         ImageView checkedStore = helper.getView(R.id.iv_checked_store);
         if (item.isChecked()) {
@@ -51,7 +60,7 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
         helper.addOnClickListener(R.id.iv_checked_store);//选中店铺
 
 
-        final CartGoodsAdapter goodsAdapter = new CartGoodsAdapter(R.layout.item_good, item.getCartlist());
+        final CartGoodsAdapter goodsAdapter = new CartGoodsAdapter(R.layout.item_good, item.getCommodityList());
         rvGood.setLayoutManager(new LinearLayoutManager(mContext));
         rvGood.setAdapter(goodsAdapter);
 
@@ -59,7 +68,7 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
         goodsAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                CarResponse.OrderDataBean.CartlistBean goodsBean = item.getCartlist().get(position);
+                GoodsEntity goodsBean = item.getCommodityList().get(position);
 
                 switch (view.getId()) {
                     case R.id.iv_checked_goods://选中商品
@@ -92,10 +101,10 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
      * @param goodsAdapter
      * @param state  true增加 false减少
      */
-    private void updateGoodsNum(CarResponse.OrderDataBean.CartlistBean goodsBean, CartGoodsAdapter goodsAdapter,boolean state) {
+    private void updateGoodsNum(GoodsEntity goodsBean, CartGoodsAdapter goodsAdapter,boolean state) {
         //其实商品应该还有一个库存值或者其他的限定值，我这里写一个假的库存值为10
-        int inventory = 10;
-        int count = goodsBean.getCount();
+        int inventory = 3;
+        int count = goodsBean.getNumber();
 
         if(state){
             if (count >= inventory){
@@ -110,7 +119,7 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
             }
             count--;
         }
-        goodsBean.setCount(count);//设置商品数量
+        goodsBean.setNumber(count);//设置商品数量
         //刷新适配器
         goodsAdapter.notifyDataSetChanged();
         //计算商品价格
@@ -120,18 +129,18 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
     /**
      * 控制店铺是否选中
      */
-    private void controlStore(CarResponse.OrderDataBean item) {
+    private void controlStore(ShopCartCommodityResponse.ShopBean item) {
         int num = 0;
-        for (CarResponse.OrderDataBean.CartlistBean bean : item.getCartlist()) {
+        for (GoodsEntity bean : item.getCommodityList()) {
             if (bean.isChecked()) {
                 ++num;
             }
         }
-        if (num == item.getCartlist().size()) {
+        if (num == item.getCommodityList().size()) {
             //全选中  传递需要选中的店铺的id过去
-            goodsCallback.checkedStore(item.getShopId(), true);
+            goodsCallback.checkedStore(item.getId(), true);
         } else {
-            goodsCallback.checkedStore(item.getShopId(), false);
+            goodsCallback.checkedStore(item.getId(), false);
         }
     }
 
@@ -140,10 +149,10 @@ public class CartShopAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean,
      */
     public void controlGoods(int shopId, boolean state) {
         //根据店铺id选中该店铺下所有商品
-        for (CarResponse.OrderDataBean orderDataBean : storeBean) {
+        for (ShopCartCommodityResponse.ShopBean shopBean : storeBean) {
             //店铺id等于传递过来的店铺id  则选中该店铺下所有商品
-            if (orderDataBean.getShopId() == shopId) {
-                for (CarResponse.OrderDataBean.CartlistBean cartlistBean : orderDataBean.getCartlist()) {
+            if (shopBean.getId() == shopId) {
+                for (GoodsEntity cartlistBean : shopBean.getCommodityList()) {
                     cartlistBean.setChecked(state);
                     //刷新
                     notifyDataSetChanged();

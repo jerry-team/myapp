@@ -19,6 +19,24 @@
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/fragment_store.xml" value="0.22" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/item_good.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/item_store.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_goods_detail.xml" value="0.17128378378378378" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_home.xml" value="0.10587431693989072" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_login.xml" value="0.10587431693989072" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_main.xml" value="0.10587431693989072" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_periphery.xml" value="0.10587431693989072" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_register.xml" value="0.10587431693989072" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_search_home.xml" value="0.17128378378378378" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_setting.xml" value="0.17128378378378378" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/activity_shop_detail.xml" value="0.17128378378378378" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/category_item_one.xml" value="0.17128378378378378" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/fragment_goods_two.xml" value="0.2375" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/fragment_home.xml" value="0.16632513661202186" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/fragment_profile.xml" value="0.2375" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/fragment_shop_cart.xml" value="0.16632513661202186" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/fragment_store.xml" value="0.16632513661202186" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/goods_item_one.xml" value="0.16632513661202186" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/item_good.xml" value="0.2375" />
+        <entry key="..\:/AndroidStudioProjects/myapp/app/src/main/res/layout/item_store.xml" value="0.2375" />
       </map>
     </option>
   </component>

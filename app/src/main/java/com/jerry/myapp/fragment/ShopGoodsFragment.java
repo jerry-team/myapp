@@ -73,26 +73,9 @@ public class ShopGoodsFragment extends BaseFragment {
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 //        System.out.println(getActivity());
-        mAdapter = new ShopGoodsAdapter(getActivity());
-//        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-//        GoodsEntity tgd = new GoodsEntity();
-//        List<GoodsEntity> list = new ArrayList<>();
-//        tgd.setCategory(1);
-//        tgd.setCreateTime("222");
-//        tgd.setDescription("asdasd");
-//        tgd.setId(8);
-//        tgd.setImgurl("asdasd");
-//        tgd.setName("咬人的狗");
-//        tgd.setNumber(1);
-//        tgd.setPrice(20000);
-//        tgd.setUpdateTime("111");
-//        tgd.setVideourl("asd");
-//        list.add(tgd);
-//        mAdapter.setDatas(list);
-//        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter = new ShopGoodsAdapter(getActivity(),goodsEntityList);
         getGoods();
-
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -110,31 +93,10 @@ public class ShopGoodsFragment extends BaseFragment {
                             Log.e("onSuccess123123", res);
                             GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
                             List<GoodsEntity> list = new ArrayList<>();
-                            goodsEntityList = response.getData();
-                            GoodsEntity tgd = new GoodsEntity();
-                            tgd.setCategory(1);
-                            tgd.setCreateTime("222");
-                            tgd.setDescription("asdasd");
-                            tgd.setId(8);
-                            tgd.setImgurl("asdasd");
-                            tgd.setName("咬人的狗");
-                            tgd.setNumber(1);
-                            tgd.setPrice(20000);
-                            tgd.setUpdateTime("111");
-                            tgd.setVideourl("asd");
-                            list.add(tgd);
-                            for(GoodsEntity gd:goodsEntityList)
-                            {
-                                System.out.println("this is real:" + gd.getName());
-                                list.add(gd);
-                            }
-                            for(GoodsEntity ttgd:list)
-                            {
-                                System.out.println("what:" + ttgd.getName());
-                            }
-
-                            mAdapter.setDatas(list);
-                            mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+                            list = response.getData();
+                            goodsEntityList.clear();
+                            goodsEntityList.addAll(list);
+                            mAdapter.notifyDataSetChanged();
                         }
                     });
 

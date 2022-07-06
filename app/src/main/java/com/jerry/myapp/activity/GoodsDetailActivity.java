@@ -1,16 +1,20 @@
 package com.jerry.myapp.activity;
 
 import android.content.Intent;
+import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,7 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huawei.hms.common.util.Logger;
+import com.huawei.hms.videokit.player.InitFactoryCallback;
+import com.huawei.hms.videokit.player.LogConfigInfo;
+import com.huawei.hms.videokit.player.WisePlayer;
+import com.huawei.hms.videokit.player.WisePlayerFactory;
+import com.huawei.hms.videokit.player.WisePlayerFactoryOptionsExt;
+import com.huawei.hms.videokit.player.common.PlayerConstants;
 import com.jerry.myapp.R;
+import com.jerry.myapp.VideoKitApplication;
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
@@ -30,7 +42,10 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.HashMap;
 
-public class GoodsDetailActivity extends BaseActivity {
+import android.view.SurfaceHolder.Callback;
+import android.view.TextureView.SurfaceTextureListener;
+
+public class GoodsDetailActivity extends BaseActivity implements Callback, SurfaceTextureListener, WisePlayer.ErrorListener, WisePlayer.ReadyListener, WisePlayer.EventListener, WisePlayer.PlayEndListener,WisePlayer.ResolutionUpdatedListener, WisePlayer.SeekEndListener, WisePlayer.LoadingListener{
 
 
     private int commodityId;
@@ -46,6 +61,9 @@ public class GoodsDetailActivity extends BaseActivity {
     private TextView isPest;
     private TextView breed;
     private TextView address;
+
+    private SurfaceView surfaceView;
+    private WisePlayer player;
 
     @Override
     protected int initLayout() {
@@ -67,6 +85,7 @@ public class GoodsDetailActivity extends BaseActivity {
         breed = findViewById(R.id.breed);
         address = findViewById(R.id.address);
 
+        surfaceView = findViewById(R.id.surface_view);
     }
 
     @Override
@@ -98,7 +117,7 @@ public class GoodsDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Bundle bd = new Bundle();
-                bd.putInt("commodityId",2);
+                bd.putInt("commodityId",commodityId);
                 navigateToWithBundle(ShopDetailActivity.class,bd);
             }
         });
@@ -109,6 +128,40 @@ public class GoodsDetailActivity extends BaseActivity {
             }
         });
         getCommodity();
+
+
+//        VideoKitApplication videoKitApplication = new VideoKitApplication();
+//        WisePlayerFactory factory = videoKitApplication.getWisePlayerFactory();
+        player = VideoKitApplication.getWisePlayerFactory().createWisePlayer();
+        // 方式1：SurfaceView显示界面
+        SurfaceHolder surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+        // 设置播放器错误信息上报监听器
+        player.setErrorListener(this);
+        // 设置播放器媒体以及播放信息上报监听器
+        player.setEventListener(this);
+        // 设置播放视频分辨率发生变化监听器
+        player.setResolutionUpdatedListener(this);
+        // 设置媒体内容已经完成准备监听器
+        player.setReadyListener(this);
+        // 设置播放器缓冲相关事件的监听器
+        player.setLoadingListener(this);
+        // 设置播放完成监听器
+        player.setPlayEndListener(this);
+        // 设置seek操作完成的监听器
+        player.setSeekEndListener(this);
+
+        player.setVideoType(PlayerConstants.PlayMode.PLAY_MODE_NORMAL);
+        player.setBookmark(10000);
+        player.setCycleMode(PlayerConstants.CycleMode.MODE_CYCLE);
+
+        player.setPlaySpeed((float)2.0);
+
+        // 方式1：设置单个播放地址
+        player.setPlayUrl("https://videoplay-mos-dra.dbankcdn.com/P_VT/video_injection/92/v3/C072F990370950198572111872/MP4Mix_H.264_1920x1080_6000_HEAAC1_PVC_NoCut.mp4");
+        player.ready();
 
     }
 
@@ -182,6 +235,90 @@ public class GoodsDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        player.setView(surfaceView);
+    }
+
+    @Override
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void onSurfaceTextureAvailable(@NonNull SurfaceTexture surface, int width, int height) {
+
+    }
+
+    @Override
+    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width, int height) {
+
+    }
+
+    @Override
+    public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surface) {
+        return false;
+    }
+
+    @Override
+    public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {
+
+    }
+
+    @Override
+    public boolean onError(WisePlayer wisePlayer, int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public boolean onEvent(WisePlayer wisePlayer, int i, int i1, Object o) {
+        return false;
+    }
+
+    @Override
+    public void onLoadingUpdate(WisePlayer wisePlayer, int i) {
+
+    }
+
+    @Override
+    public void onStartPlaying(WisePlayer wisePlayer) {
+        System.out.println(player.getDuration());
+        System.out.println();player.getCurrentTime();
+//        player.seek(3600000);
+    }
+
+    @Override
+    public void onPlayEnd(WisePlayer wisePlayer) {
+//        player.stop();
+        // 释放播放器，并将播放器对象置为null
+        player.release();
+        player = null;
+    }
+
+    @Override
+    public void onReady(WisePlayer wisePlayer) {
+//        player.getDuration();
+//        player.getCurrentTime();
+//        player.seek(3600000);
+
+        player.start();
+    }
+
+    @Override
+    public void onResolutionUpdated(WisePlayer wisePlayer, int i, int i1) {
+
+    }
+
+    @Override
+    public void onSeekEnd(WisePlayer wisePlayer) {
+
     }
 
 }

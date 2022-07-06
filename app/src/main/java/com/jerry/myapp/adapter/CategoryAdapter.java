@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jerry.myapp.R;
 import com.jerry.myapp.entity.CategoryEntity;
+import com.jerry.myapp.util.TransformationUtils;
 
 import java.io.Serializable;
 import java.util.List;

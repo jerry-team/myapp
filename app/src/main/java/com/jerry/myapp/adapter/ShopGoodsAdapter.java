@@ -23,6 +23,11 @@ public class ShopGoodsAdapter extends RecyclerView.Adapter<ShopGoodsAdapter.View
     private String price = "";
     private static ShopGoodsAdapter.OnItemClickListener mOnItemClickListener;
 
+    public ShopGoodsAdapter( Context mContext,List<GoodsEntity> goodsEntityList) {
+        this.goodsEntityList = goodsEntityList;
+        this.mContext = mContext;
+    }
+
     public void setOnItemClickListener(ShopGoodsAdapter.OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }

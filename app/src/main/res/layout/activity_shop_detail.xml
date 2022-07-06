@@ -64,7 +64,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/user_name"
+                        android:id="@+id/shop_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/person_icon"
@@ -81,8 +81,8 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:background="@mipmap/right"
-                        android:layout_alignTop="@+id/user_name"
-                        android:layout_toRightOf="@+id/user_name"
+                        android:layout_alignTop="@+id/shop_name"
+                        android:layout_toRightOf="@+id/shop_name"
                         android:clickable="true"
                         >
                     </ImageView>
@@ -95,9 +95,9 @@
                         android:drawablePadding="-5dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="5dp"
-                        android:layout_below="@+id/user_name"
+                        android:layout_below="@+id/shop_name"
                         android:layout_toRightOf="@+id/person_icon"
-                        android:layout_alignLeft="@id/user_name"
+                        android:layout_alignLeft="@id/shop_name"
                         />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -117,7 +117,7 @@
                 android:layout_marginBottom="8dp">
 
                 <GridLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="1000dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:columnCount="3"
@@ -128,10 +128,11 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6dp"
                         android:text="简介"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         android:layout_margin="10dp"
                         android:textColor="#b5b5b5"/>
                     <TextView
+                        android:id="@+id/shop_description"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -139,19 +140,20 @@
                         android:layout_rowWeight="1"
                         android:layout_marginLeft="6dp"
                         android:text="福建省厦门市集美区厦门理工学院一期宿舍"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         android:layout_margin="10dp"
                         android:textColor="#b5b5b5"/>
 
 
                     <TextView
+                        android:id="@+id/shop_address"
                         android:layout_column="0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6dp"
                         android:text="地址"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         android:layout_margin="10dp"
                         android:textColor="#b5b5b5"/>
 
@@ -159,6 +161,7 @@
                         android:layout_column="1"
                         android:layout_columnSpan="2">
                         <TextView
+                            android:id="@+id/address"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -166,7 +169,7 @@
                             android:layout_rowWeight="1"
                             android:layout_marginLeft="6dp"
                             android:text="福建省厦门市集美区厦门理工学院一期宿舍"
-                            android:textSize="20dp"
+                            android:textSize="16dp"
                             android:layout_margin="10dp"
                             android:textColor="#b5b5b5"/>
                     </RelativeLayout>

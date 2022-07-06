@@ -5,29 +5,37 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jerry.myapp.R;
 import com.jerry.myapp.entity.CarResponse;
+import com.jerry.myapp.entity.GoodsEntity;
 
 import java.util.List;
 
 
-public class CartGoodsAdapter extends BaseQuickAdapter<CarResponse.OrderDataBean.CartlistBean, BaseViewHolder> {
+public class CartGoodsAdapter extends BaseQuickAdapter<GoodsEntity, BaseViewHolder> {
 
-   public CartGoodsAdapter(int layoutResId, @Nullable List<CarResponse.OrderDataBean.CartlistBean> data) {
+   public CartGoodsAdapter(int layoutResId, @Nullable List<GoodsEntity> data) {
       super(layoutResId, data);
    }
 
    @Override
-   protected void convert(BaseViewHolder helper, CarResponse.OrderDataBean.CartlistBean item) {
-      helper.setText(R.id.tv_good_name, item.getProductName())
-              .setText(R.id.tv_good_color, item.getColor())
-              .setText(R.id.tv_good_size, item.getSize())
-              .setText(R.id.tv_goods_price, item.getPrice() + "")
-              .setText(R.id.tv_goods_num, item.getCount() + "");
+   protected void convert(BaseViewHolder helper, GoodsEntity item) {
+      helper.setText(R.id.tv_good_name, item.getName())
+              .setText(R.id.tv_good_color, item.getBreed())
+//              .setText(R.id.tv_good_size, item.getName())
+              .setText(R.id.tv_goods_price, "￥" + item.getPrice())
+              .setText(R.id.tv_goods_num, item.getNumber() + "");
       ImageView goodImg = helper.getView(R.id.iv_goods);
-      Glide.with(mContext).load(item.getDefaultPic()).into(goodImg);
+//      RequestOptions requestOptions = new RequestOptions();
+//      requestOptions
+//              .skipMemoryCache(true)
+//              .diskCacheStrategy(DiskCacheStrategy.NONE);
+      Glide.with(mContext).load("http://10.0.2.2:8001/commodityImages/"+item.getImgurl()).into(goodImg);
+//      Glide.with(mContext).load(item.getDefaultPic()).into(goodImg);
 
       ImageView checkedGoods = helper.getView(R.id.iv_checked_goods);
       //判断商品是否选中
