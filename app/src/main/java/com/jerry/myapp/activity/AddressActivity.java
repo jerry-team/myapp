@@ -101,29 +101,13 @@ public class AddressActivity extends BaseActivity{
                     }
                 }
         );
-        //api获取后台数据
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        //查询List
-        Api.config(ApiConfig.ListAddress,params).postRequest(this,new TtitCallback() {
-            @Override
-            public void onSuccess(final String res) {
-                Log.e("address", res);
-                Gson gson = new Gson();
-                AddressResponse addressResponse = gson.fromJson(res, AddressResponse.class);
-                //AddressResponse addressResponse = gson.fromJson(res, new TypeToken<List<AddressResponse.AddressInfo>>() {}.getType());
-                //List<AddressResponse.AddressInfo> test= addressResponse.getData();
-                    adrList = addressResponse.getData();
-            }
-            @Override
-            public void onFailure(Exception e) {
-            }
-        });
         //new一个适配器
         addressAdapter = new AddressAdapter(R.layout.address_card,adrList);
         //设置刷新页面管理器
         adrRecycle.setLayoutManager(new LinearLayoutManager(this));
         //设置适配器
         adrRecycle.setAdapter(addressAdapter);
+        getAddress();
         //子监听器
         addressAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
@@ -174,6 +158,38 @@ public class AddressActivity extends BaseActivity{
     @Override
     protected void initData() {
 
+    }
+
+    private void getAddress(){
+        String token = getStringFromSp("token");
+        //api获取后台数据
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("token", token);
+        params.put("userId",1);
+        //查询List
+        Api.config(ApiConfig.ListAddress,params).postRequest(this,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("address", res);
+                        Gson gson = new Gson();
+                        AddressResponse addressResponse = gson.fromJson(res, AddressResponse.class);
+                        //AddressResponse addressResponse = gson.fromJson(res, new TypeToken<List<AddressResponse.AddressInfo>>() {}.getType());
+                        //List<AddressResponse.AddressInfo> test= addressResponse.getData();
+                        List<AddressResponse.AddressInfo> list = addressResponse.getData();
+                        adrList.clear();
+                        adrList.addAll(list);
+                        addressAdapter.notifyDataSetChanged();
+                    }
+                });
+
+            }
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
     }
 
 }

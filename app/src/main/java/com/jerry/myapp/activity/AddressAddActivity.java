@@ -122,6 +122,7 @@ public class AddressAddActivity extends BaseActivity{
         params.put("telephone", add.getTelephone());
         params.put("address", add.getAddress());
         params.put("defaultAddress", add.getDefaultAddress());
+        params.put("userId",1);
         //发送params
         Api.config(ApiConfig.ADDADRESS,params).postRequest(this,new TtitCallback() {
             @Override

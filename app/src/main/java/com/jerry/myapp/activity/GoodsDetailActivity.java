@@ -44,6 +44,7 @@ import com.jerry.myapp.VideoKitApplication;
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
+import com.jerry.myapp.entity.DefaultAddressResponse;
 import com.jerry.myapp.entity.GoodsDetailResponse;
 import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.GoodsResponse;
@@ -74,6 +75,7 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     private TextView isPest;
     private TextView breed;
     private TextView address;
+    private String default_Address;
 
     private SurfaceView surfaceView;
     private WisePlayer player;
@@ -161,6 +163,7 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
                 insertShopCart();
             }
         });
+        getDefaultAddress();
         getCommodity();
 
         FrameLayout playerContainer = findViewById(R.id.player_container);
@@ -253,6 +256,33 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
                         } else {
                             Toast.makeText(GoodsDetailActivity.this, "购物车已有该商品！", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+
+            }
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+    }
+
+    public void getDefaultAddress(){
+        String token = getStringFromSp("token");
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("userId", 1);
+        Api.config("/address/getByUserId",params).postRequest(this,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("DefaultAddress", res);
+                        Gson gson = new Gson();
+                        DefaultAddressResponse defaultAddressResponse = gson.fromJson(res, DefaultAddressResponse.class);
+                        DefaultAddressResponse.DefaultAddress de = defaultAddressResponse.getData();
+                        default_Address = de.getAddress();
+                        address.setText(default_Address);
                     }
                 });
 
