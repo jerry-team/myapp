@@ -42,7 +42,9 @@
             android:layout_marginRight="12dp"
             android:text="编辑"
             android:textColor="@color/actionsheet_red"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+
+            />
     </androidx.appcompat.widget.Toolbar>
 
 

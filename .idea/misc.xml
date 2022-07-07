@@ -4,11 +4,36 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable-v24/ic_shopping_cart.xml" value="0.1" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/advert_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/advert_button.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/edit_rigster.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/profile_icon_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/register_im1_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/rigter_button.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/setting_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/shape_big_login_btn.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/shape_search_box.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/state_common_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/state_vip_background.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/state_vip_card.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/drawable/state_vip_endrose.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_address.xml" value="0.16666666666666666" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_address_add.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_goods_detail.xml" value="0.17916666666666667" />
+>>>>>>> ef835dc3f4aac44647b591e599b5b10db9494de9
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_home.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_login.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_main.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_register.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_shop_cart.xml" value="0.14666666666666667" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/activity_shop_detail.xml" value="0.22" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/address_card.xml" value="0.4466666666666667" />
+        <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/category_item_one.xml" value="0.16666666666666666" />
+>>>>>>> ef835dc3f4aac44647b591e599b5b10db9494de9
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/fragment_detail.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/fragment_goods_one.xml" value="0.22" />
         <entry key="..\:/AndroidProject/myapp/app/src/main/res/layout/fragment_goods_three.xml" value="0.3333333333333333" />

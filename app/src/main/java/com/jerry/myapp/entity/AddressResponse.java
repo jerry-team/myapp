@@ -5,7 +5,7 @@ import java.util.List;
 public class AddressResponse {
     private int code;
     private String msg;
-    List<AddressInfo> addressList;
+    List<AddressInfo> data;
 
     public int getCode() {
         return code;
@@ -23,18 +23,18 @@ public class AddressResponse {
         this.msg = msg;
     }
 
-    public List<AddressInfo> getAddressList() {
-        return addressList;
+    public List<AddressInfo> getData() {
+        return data;
     }
 
-    public void setAddressList(List<AddressInfo> addressList) {
-        this.addressList = addressList;
+    public void setData(List<AddressInfo> data) {
+        this.data = data;
     }
 
     public static class AddressInfo{
         private Integer id;
         private String name;
-        private Integer telephone;
+        private Long telephone;
         private String address;
         private Integer defaultAddress;
         public Integer getId() {
@@ -53,11 +53,11 @@ public class AddressResponse {
             this.name = name;
         }
 
-        public Integer getTelephone() {
+        public Long getTelephone() {
             return telephone;
         }
 
-        public void setTelephone(Integer telephone) {
+        public void setTelephone(Long telephone) {
             this.telephone = telephone;
         }
 

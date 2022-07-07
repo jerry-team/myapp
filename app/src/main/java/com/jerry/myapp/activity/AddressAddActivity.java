@@ -1,5 +1,6 @@
 package com.jerry.myapp.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -8,7 +9,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jerry.myapp.R;
+import com.jerry.myapp.api.Api;
+import com.jerry.myapp.api.ApiConfig;
+import com.jerry.myapp.api.TtitCallback;
+import com.jerry.myapp.entity.UserResponse;
 import com.jerry.myapp.util.ParseTokenUtils;
 import com.jerry.myapp.util.StringUtils;
 
@@ -49,10 +55,10 @@ public class AddressAddActivity extends BaseActivity{
         leftReturn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(AddressActivity.class);
+                finish();
             }
         });
-        //情况详细地址内容
+        //清空详细地址内容
         clearDetail.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -86,7 +92,22 @@ public class AddressAddActivity extends BaseActivity{
                         }else{
                             address1.setDefaultAddress(0);
                         }
-                        //调用
+                        if (StringUtils.isEmpty(address1.getName())) {
+                            Toast.makeText(getApplicationContext(),"收件人姓名不能为空",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (StringUtils.isEmpty(address1.getTelephone())) {
+                            Toast.makeText(getApplicationContext(),"电话号码不能为空",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (StringUtils.isEmpty(address1.getAddress())) {
+                            Toast.makeText(getApplicationContext(),"详细地址不能为空",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (!isMobile(address1.getTelephone())){
+                            Toast.makeText(getApplicationContext(),"电话号码格式不正确",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         addAddressTo(address1);
                     }
                 }
@@ -95,32 +116,33 @@ public class AddressAddActivity extends BaseActivity{
 
     }
     private void addAddressTo(Address add){
-        navigateTo(AddressAddActivity.class);
-
-        if (StringUtils.isEmpty(add.getName())) {
-            Toast.makeText(getApplicationContext(),"收件人姓名不能为空",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (StringUtils.isEmpty(add.getTelephone())) {
-            Toast.makeText(getApplicationContext(),"电话号码不能为空",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (StringUtils.isEmpty(add.getAddress())) {
-            Toast.makeText(getApplicationContext(),"详细地址不能为空",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!isMobile(add.getTelephone())){
-            Toast.makeText(getApplicationContext(),"电话号码格式不正确",Toast.LENGTH_SHORT).show();
-            return;
-        }
+        //navigateTo(AddressAddActivity.class);
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("name", add.getName());
         params.put("telephone", add.getTelephone());
         params.put("address", add.getAddress());
         params.put("defaultAddress", add.getDefaultAddress());
-        String token = getStringFromSp("token");
-        ParseTokenUtils parse = new ParseTokenUtils();
-        params.put("token",parse);
+        //发送params
+        Api.config(ApiConfig.ADDADRESS,params).postRequest(this,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                Log.e("onSuccess", res);
+                Gson gson = new Gson();
+                //LoginResponse loginResponse = gson.fromJson(res, LoginResponse.class);
+                AddResponse addResponse = gson.fromJson(res,AddResponse.class);
+                if (addResponse.getCode()==200){
+                    finish();
+                }else{
+                    showToastSync("添加失败");
+                }
+                //UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+
+            }
+            @Override
+            public void onFailure(Exception e) {
+            }
+        });
+
     }
     //手机号11位正则验证
     public static boolean isMobile(String mobile) {
@@ -167,6 +189,35 @@ public class AddressAddActivity extends BaseActivity{
 
         public void setDefaultAddress(Integer defaultAddress) {
             this.defaultAddress = defaultAddress;
+        }
+    }
+    public static class AddResponse{
+        private int code;
+        private String msg;
+        private Object data;
+
+        public int getCode() {
+            return code;
+        }
+
+        public void setCode(int code) {
+            this.code = code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        public Object getData() {
+            return data;
+        }
+
+        public void setData(Object data) {
+            this.data = data;
         }
     }
 }

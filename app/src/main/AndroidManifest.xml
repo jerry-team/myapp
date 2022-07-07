@@ -40,6 +40,7 @@
 
         <activity android:name=".activity.AddressActivity"/>
         <activity android:name=".activity.AddressAddActivity"/>
+
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

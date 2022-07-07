@@ -1,21 +1,31 @@
 package com.jerry.myapp.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.dueeeke.videocontroller.StandardVideoController;
+import com.dueeeke.videocontroller.component.CompleteView;
+import com.dueeeke.videocontroller.component.ErrorView;
+import com.dueeeke.videocontroller.component.GestureView;
+import com.dueeeke.videocontroller.component.PrepareView;
+import com.dueeeke.videocontroller.component.TitleView;
+import com.dueeeke.videocontroller.component.VodControlView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
+import com.dueeeke.videoplayer.player.VideoView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +48,9 @@ import com.jerry.myapp.entity.GoodsDetailResponse;
 import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.GoodsResponse;
 import com.jerry.myapp.entity.ShopCartResponse;
+import com.jerry.myapp.entity.Tag;
+import com.jerry.myapp.util.Tags;
+import com.jerry.myapp.util.Utils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.HashMap;
@@ -65,6 +78,24 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     private SurfaceView surfaceView;
     private WisePlayer player;
 
+    protected VideoView mVideoView;
+    protected StandardVideoController mController;
+    protected ErrorView mErrorView;
+    protected CompleteView mCompleteView;
+    protected TitleView mTitleView;
+    private LinearLayoutManager linearLayoutManager;
+    private PrepareView mPrepareView;
+    public FrameLayout mPlayerContainer;
+
+    /**
+     * 当前播放的位置
+     */
+    protected int mCurPos = -1;
+    /**
+     * 上次播放的位置，用于页面切回来之后恢复播放
+     */
+    protected int mLastPos = mCurPos;
+
     @Override
     protected int initLayout() {
         return R.layout.activity_goods_detail;
@@ -85,7 +116,10 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
         breed = findViewById(R.id.breed);
         address = findViewById(R.id.address);
 
-        surfaceView = findViewById(R.id.surface_view);
+        mPrepareView = findViewById(R.id.prepare_view);
+        mPlayerContainer = findViewById(R.id.player_container);
+        initVideoView();
+//        surfaceView = findViewById(R.id.surface_view);
     }
 
     @Override
@@ -129,40 +163,77 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
         });
         getCommodity();
 
+        FrameLayout playerContainer = findViewById(R.id.player_container);
+        View v = playerContainer.getChildAt(0);
+        if (v != null && v == mVideoView && !mVideoView.isFullScreen()) {
+            releaseVideoView();
+        }
+
+        mPrepareView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlay();
+            }
+        });
 
 //        VideoKitApplication videoKitApplication = new VideoKitApplication();
 //        WisePlayerFactory factory = videoKitApplication.getWisePlayerFactory();
-        player = VideoKitApplication.getWisePlayerFactory().createWisePlayer();
-        // 方式1：SurfaceView显示界面
-        SurfaceHolder surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+//        player = VideoKitApplication.getWisePlayerFactory().createWisePlayer();
+//        // 方式1：SurfaceView显示界面
+//        SurfaceHolder surfaceHolder = surfaceView.getHolder();
+//        surfaceHolder.addCallback(this);
+//        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+//
+//        // 设置播放器错误信息上报监听器
+//        player.setErrorListener(this);
+//        // 设置播放器媒体以及播放信息上报监听器
+//        player.setEventListener(this);
+//        // 设置播放视频分辨率发生变化监听器
+//        player.setResolutionUpdatedListener(this);
+//        // 设置媒体内容已经完成准备监听器
+//        player.setReadyListener(this);
+//        // 设置播放器缓冲相关事件的监听器
+//        player.setLoadingListener(this);
+//        // 设置播放完成监听器
+//        player.setPlayEndListener(this);
+//        // 设置seek操作完成的监听器
+//        player.setSeekEndListener(this);
+//
+//        player.setVideoType(PlayerConstants.PlayMode.PLAY_MODE_NORMAL);
+//        player.setBookmark(10000);
+//        player.setCycleMode(PlayerConstants.CycleMode.MODE_CYCLE);
+//
+//
+//        // 方式1：设置单个播放地址
+//        player.setPlayUrl("https://videoplay-mos-dra.dbankcdn.com/P_VT/video_injection/92/v3/C072F990370950198572111872/MP4Mix_H.264_1920x1080_6000_HEAAC1_PVC_NoCut.mp4");
+//        player.ready();
 
-        // 设置播放器错误信息上报监听器
-        player.setErrorListener(this);
-        // 设置播放器媒体以及播放信息上报监听器
-        player.setEventListener(this);
-        // 设置播放视频分辨率发生变化监听器
-        player.setResolutionUpdatedListener(this);
-        // 设置媒体内容已经完成准备监听器
-        player.setReadyListener(this);
-        // 设置播放器缓冲相关事件的监听器
-        player.setLoadingListener(this);
-        // 设置播放完成监听器
-        player.setPlayEndListener(this);
-        // 设置seek操作完成的监听器
-        player.setSeekEndListener(this);
+    }
 
-        player.setVideoType(PlayerConstants.PlayMode.PLAY_MODE_NORMAL);
-        player.setBookmark(10000);
-        player.setCycleMode(PlayerConstants.CycleMode.MODE_CYCLE);
-
-        player.setPlaySpeed((float)2.0);
-
-        // 方式1：设置单个播放地址
-        player.setPlayUrl("https://videoplay-mos-dra.dbankcdn.com/P_VT/video_injection/92/v3/C072F990370950198572111872/MP4Mix_H.264_1920x1080_6000_HEAAC1_PVC_NoCut.mp4");
-        player.ready();
-
+    protected void initVideoView() {
+        mVideoView = new VideoView(this);
+        mVideoView.setOnStateChangeListener(new com.dueeeke.videoplayer.player.VideoView.SimpleOnStateChangeListener() {
+            @Override
+            public void onPlayStateChanged(int playState) {
+                //监听VideoViewManager释放，重置状态
+                if (playState == com.dueeeke.videoplayer.player.VideoView.STATE_IDLE) {
+                    Utils.removeViewFormParent(mVideoView);
+                    mLastPos = mCurPos;
+                    mCurPos = -1;
+                }
+            }
+        });
+        mController = new StandardVideoController(this);
+        mErrorView = new ErrorView(this);
+        mController.addControlComponent(mErrorView);
+        mCompleteView = new CompleteView(this);
+        mController.addControlComponent(mCompleteView);
+        mTitleView = new TitleView(this);
+        mController.addControlComponent(mTitleView);
+        mController.addControlComponent(new VodControlView(this));
+        mController.addControlComponent(new GestureView(this));
+        mController.setEnableOrientation(true);
+        mVideoView.setVideoController(mController);
     }
 
     public void insertShopCart(){
@@ -238,6 +309,87 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        pause();
+    }
+
+    /**
+     * 由于onPause必须调用super。故增加此方法，
+     * 子类将会重写此方法，改变onPause的逻辑
+     */
+    protected void pause() {
+        releaseVideoView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resume();
+    }
+
+    /**
+     * 由于onResume必须调用super。故增加此方法，
+     * 子类将会重写此方法，改变onResume的逻辑
+     */
+    protected void resume() {
+//        if (mLastPos == -1)
+//            return;
+        //恢复上次播放的位置
+        startPlay();
+    }
+
+    /**
+     * PrepareView被点击
+     */
+//    @Override
+//    public void onItemChildClick(int position) {
+//        startPlay(position);
+//    }
+
+//    /**
+//     * 开始播放
+//     *
+//     * @param position 列表位置
+//     */
+    protected void startPlay() {
+//        if (mCurPos == position) return;
+        if (mCurPos != -1) {
+            releaseVideoView();
+        }
+//        VideoEntity videoEntity = datas.get(position);
+        //边播边存
+//        String proxyUrl = ProxyVideoCacheManager.getProxy(getActivity()).getProxyUrl(videoBean.getUrl());
+//        mVideoView.setUrl(proxyUrl);
+
+        mVideoView.setUrl("http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4");
+        mTitleView.setTitle("猫猫大战狗狗");
+//        View itemView = linearLayoutManager.findViewByPosition(position);
+//        if (itemView == null) return;
+//        VideoAdapter.ViewHolder viewHolder = (VideoAdapter.ViewHolder) itemView.getTag();
+        //把列表中预置的PrepareView添加到控制器中，注意isPrivate此处只能为true。
+        mController.addControlComponent(mPrepareView, true);
+        Utils.removeViewFormParent(mVideoView);
+        mPlayerContainer.addView(mVideoView, 0);
+        //播放之前将VideoView添加到VideoViewManager以便在别的页面也能操作它
+        getVideoViewManager().add(mVideoView, Tags.LIST);
+        mVideoView.start();
+//        mCurPos = position;
+
+    }
+
+    private void releaseVideoView() {
+        mVideoView.release();
+        if (mVideoView.isFullScreen()) {
+            mVideoView.stopFullScreen();
+        }
+        if (this.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        mCurPos = -1;
+    }
+
+    @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         player.setView(surfaceView);
     }
@@ -289,8 +441,8 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
 
     @Override
     public void onStartPlaying(WisePlayer wisePlayer) {
-        System.out.println(player.getDuration());
-        System.out.println();player.getCurrentTime();
+//        System.out.println(player.getDuration());
+//        System.out.println();player.getCurrentTime();
 //        player.seek(3600000);
     }
 
@@ -309,6 +461,9 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
 //        player.seek(3600000);
 
         player.start();
+        player.setPlaySpeed((float)2.0);
+        player.getCurrentTime();
+        player.getDuration();
     }
 
     @Override

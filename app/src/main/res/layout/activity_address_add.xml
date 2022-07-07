@@ -10,6 +10,7 @@
     android:background="@color/background"
     >
     <!--顶部-->
+    <!--收件人姓名-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
@@ -23,18 +24,18 @@
             android:layout_gravity="left"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/arrow_left"/>
+            android:background="@mipmap/arrow_left" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
             android:text="添加收货地址"
             android:textColor="#000"
             android:textSize="18sp" />
 
     </androidx.appcompat.widget.Toolbar>
-    <!--收件人姓名-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
