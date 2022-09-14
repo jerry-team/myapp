@@ -25,6 +25,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
+//        System.out.println("item:"+position);
         return mFragments.get(position);
     }
 

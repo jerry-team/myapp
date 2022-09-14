@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="宠物猫商店"
+                android:textColor="#000"
+                android:textSize="16sp"></TextView>
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv_shop"
+                android:text="12 : 00 : 00 后取消订单"
+                android:visibility="gone"
+                android:textColor="@color/actionsheet_red"
+                android:textSize="14sp" />
+            <!--商品图片-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_shop"
+                android:padding="2dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+<!--            付款金额-->
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rcl_2"
+                android:layout_marginLeft="250dp"
+                android:text="实付款 2034.28"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_money"
+                android:layout_marginBottom="15dp">
+
+                <Button
+                    android:id="@+id/bt_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="待支付"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/bt_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="确认收获"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/bt_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="评价"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/bt_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="催发货"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/bt_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="180dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="取消订单"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/bt_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="180dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_order"
+                    android:text="申请退单"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <TextView
+                    android:id="@+id/tv_order_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="30dp"
+                    android:text="交易完成"
+                    android:visibility="gone"
+                    android:textColor="@color/actionsheet_red"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="280dp"
+                    android:layout_marginTop="30dp"
+                    android:text="退单待管理员审核中...."
+                    android:visibility="gone"
+                    android:textColor="@color/actionsheet_red"
+                    android:textSize="20sp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

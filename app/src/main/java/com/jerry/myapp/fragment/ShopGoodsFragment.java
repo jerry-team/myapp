@@ -74,8 +74,8 @@ public class ShopGoodsFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(gridLayoutManager);
 //        System.out.println(getActivity());
         mAdapter = new ShopGoodsAdapter(getActivity(),goodsEntityList);
-        getGoods();
         mRecyclerView.setAdapter(mAdapter);
+        getGoods();
     }
 
 

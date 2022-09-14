@@ -20,13 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,20 +46,28 @@ import com.huawei.hms.videokit.player.WisePlayerFactoryOptionsExt;
 import com.huawei.hms.videokit.player.common.PlayerConstants;
 import com.jerry.myapp.R;
 import com.jerry.myapp.VideoKitApplication;
+import com.jerry.myapp.adapter.CommentAdapter;
+import com.jerry.myapp.adapter.ReplyAdapter;
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
+import com.jerry.myapp.entity.CommentEntity;
+import com.jerry.myapp.entity.CommentResponse;
 import com.jerry.myapp.entity.DefaultAddressResponse;
 import com.jerry.myapp.entity.GoodsDetailResponse;
 import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.GoodsResponse;
+import com.jerry.myapp.entity.ShopCartCommodityResponse;
 import com.jerry.myapp.entity.ShopCartResponse;
 import com.jerry.myapp.entity.Tag;
 import com.jerry.myapp.util.Tags;
 import com.jerry.myapp.util.Utils;
+
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.view.SurfaceHolder.Callback;
 import android.view.TextureView.SurfaceTextureListener;
@@ -62,7 +75,7 @@ import android.view.TextureView.SurfaceTextureListener;
 public class GoodsDetailActivity extends BaseActivity implements Callback, SurfaceTextureListener, WisePlayer.ErrorListener, WisePlayer.ReadyListener, WisePlayer.EventListener, WisePlayer.PlayEndListener,WisePlayer.ResolutionUpdatedListener, WisePlayer.SeekEndListener, WisePlayer.LoadingListener{
 
 
-    private int commodityId;
+    public static int commodityId;
     private CommonTitleBar titleBar;
     private ImageView rlShop;
     private TextView tv_shopcart;
@@ -88,6 +101,17 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     private LinearLayoutManager linearLayoutManager;
     private PrepareView mPrepareView;
     public FrameLayout mPlayerContainer;
+
+    /**
+     * 评论
+     */
+    private RecyclerView commentRecyclerView;
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+    private CommentAdapter commentAdapter;
+    public static LinearLayout line_comment;
+    public static EditText et_comment_1;
+    public static EditText et_comment_2;
+    public static Button bt_comment;
 
     /**
      * 当前播放的位置
@@ -122,6 +146,11 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
         mPlayerContainer = findViewById(R.id.player_container);
         initVideoView();
 //        surfaceView = findViewById(R.id.surface_view);
+        commentRecyclerView = findViewById(R.id.rcl_3);
+        line_comment = findViewById(R.id.line_comment);
+        et_comment_1 = findViewById(R.id.et_comment_1);
+        et_comment_2 = findViewById(R.id.et_comment_2);
+        bt_comment = findViewById(R.id.bt_comment);
     }
 
     @Override
@@ -163,6 +192,7 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
                 insertShopCart();
             }
         });
+
         getDefaultAddress();
         getCommodity();
 
@@ -178,6 +208,15 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
                 startPlay();
             }
         });
+
+        getComment();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,RecyclerView.VERTICAL,false);
+        commentRecyclerView.setLayoutManager(linearLayoutManager);
+        commentAdapter = new CommentAdapter(mContext,commentEntityList);
+        commentRecyclerView.setAdapter(commentAdapter);
+
+
+
 
 //        VideoKitApplication videoKitApplication = new VideoKitApplication();
 //        WisePlayerFactory factory = videoKitApplication.getWisePlayerFactory();
@@ -211,6 +250,37 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
 //        player.setPlayUrl("https://videoplay-mos-dra.dbankcdn.com/P_VT/video_injection/92/v3/C072F990370950198572111872/MP4Mix_H.264_1920x1080_6000_HEAAC1_PVC_NoCut.mp4");
 //        player.ready();
 
+    }
+    protected void getComment(){
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("commodityId", this.commodityId);
+        Api.config(ApiConfig.GETCOMMENT,params).postRequest(this,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Log.e("insertShopCart", res);
+                        Gson gson = new Gson();
+                        CommentResponse rs = gson.fromJson(res, CommentResponse.class);
+                        if(rs.getCode() == 200) {
+                            List<CommentEntity> list = rs.getData();
+                            commentEntityList.clear();
+                            commentEntityList.addAll(list);
+                            commentAdapter.notifyDataSetChanged();
+//                            shopBeanList = rs.getData();
+                        } else {
+
+                        }
+                    }
+                });
+
+            }
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     protected void initVideoView() {
@@ -505,5 +575,4 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     public void onSeekEnd(WisePlayer wisePlayer) {
 
     }
-
 }

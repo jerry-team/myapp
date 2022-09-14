@@ -60,6 +60,7 @@
                 android:drawablePadding="3dp"
                 android:drawableRight="@mipmap/relocate"
                 />
+
             <Button
                 android:id="@+id/search_good_type"
                 android:layout_width="69dp"

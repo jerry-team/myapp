@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.icu.text.CaseMap;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.jerry.myapp.R;
 
 import com.jerry.myapp.activity.AddressActivity;
 import com.jerry.myapp.activity.HomeActivity;
+import com.jerry.myapp.activity.OrderActivity;
 import com.jerry.myapp.activity.SettingActivity;
 
 import com.jerry.myapp.api.Api;
@@ -57,6 +59,11 @@ public class ProfileFragment extends BaseFragment {
     private RelativeLayout stete_card;
     private ImageView address_icon;
     private Button btn_endorse;
+    private ImageView icon_1;
+    private ImageView icon_2;
+    private ImageView icon_3;
+    private ImageView icon_4;
+    private ImageView icon_5;
 
 
     public static ProfileFragment newInstance() {
@@ -83,6 +90,9 @@ public class ProfileFragment extends BaseFragment {
         //地址管理id=icon_6
         address_icon =mRootView.findViewById(R.id.icon_6);
         btn_endorse = mRootView.findViewById(R.id.btn_endrose);
+        //订单
+        icon_1 = mRootView.findViewById(R.id.icon_1);
+        icon_2 = mRootView.findViewById(R.id.icon_2);
     }
 
 
@@ -118,6 +128,23 @@ public class ProfileFragment extends BaseFragment {
         }));
 
 
+        icon_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",0);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+        icon_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",1);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+
     }
 
     private void toApplyMember(){
@@ -129,6 +156,7 @@ public class ProfileFragment extends BaseFragment {
             public void onSuccess(String res) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+
             }
 
             @Override

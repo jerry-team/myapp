@@ -201,14 +201,14 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="5dp">
 
-                    <ImageView
-                        android:id="@+id/icon_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_row="0"
-                        android:layout_column="1"
-                        android:src="@mipmap/wait_pay" />
+                        <ImageView
+                            android:id="@+id/icon_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/wait_pay" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -232,9 +232,9 @@
                             android:id="@+id/icon_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_row="0"
                             android:layout_column="2"
+                            android:layout_centerHorizontal="true"
                             android:src="@mipmap/wait_send3" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -257,9 +257,9 @@
                             android:id="@+id/icon_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_row="0"
                             android:layout_column="1"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
                             android:src="@mipmap/al_send" />
                         <TextView
@@ -284,9 +284,9 @@
                             android:id="@+id/icon_4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_row="0"
                             android:layout_column="4"
+                            android:layout_centerHorizontal="true"
                             android:src="@mipmap/refund" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -310,9 +310,9 @@
                             android:id="@+id/icon_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
                             android:layout_row="0"
                             android:layout_column="5"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginTop="3dp"
                             android:src="@mipmap/assess" />
                         <TextView

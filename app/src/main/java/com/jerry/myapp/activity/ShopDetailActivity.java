@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
@@ -50,7 +51,7 @@ public class ShopDetailActivity extends BaseActivity {
     private CommonTitleBar titlebar;
     private String[] mTitles;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private FixedViewPager viewPager;
+    private ViewPager viewPager;
 
     private TextView name;
     private TextView description;
@@ -94,7 +95,8 @@ public class ShopDetailActivity extends BaseActivity {
 //        mRecyclerView.setLayoutManager(gridLayoutManager);
 ////        System.out.println(getActivity());
 //        mAdapter = new ShopGoodsAdapter(this);
-////        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+//        mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+//        mAdapter.setDatas(goodsEntityList);
 //        getGoods();
 //        mRecyclerView.setAdapter(mAdapter);
 
@@ -144,21 +146,18 @@ public class ShopDetailActivity extends BaseActivity {
 //        if (!StringUtils.isEmpty(token)) {
 //            HashMap<String, Object> params = new HashMap<>();
 //            params.put("token", token);
-//            Api.config("/commodity/list", params).postRequest(new TtitCallback() {
+//            Api.config("/commodity/list", params).postRequest(this,new TtitCallback() {
 //                @Override
 //                public void onSuccess(final String res) {
-//
-//
 //                            Log.e("onSuccess", res);
 //                            GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
 //                            List<GoodsEntity> list = response.getData();
-//                            goodsEntityList = list;
-//                            mAdapter.setDatas(goodsEntityList);
+////                            goodsEntityList = list;
+//                            goodsEntityList.clear();
+//                            goodsEntityList.addAll(list);
+////                            mAdapter.setDatas(goodsEntityList);
 //                            mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
-//
-//
 //                }
-//
 //                @Override
 //                public void onFailure(Exception e) {
 //                }
