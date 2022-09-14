@@ -154,9 +154,18 @@ public class ProfileFragment extends BaseFragment {
         Api.config(ApiConfig.APPLYMEMBER,params).postRequest(getActivity(), new TtitCallback() {
             @Override
             public void onSuccess(String res) {
-                Gson gson = new Gson();
-                UserResponse userResponse = gson.fromJson(res, UserResponse.class);
-
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+                            Integer status=userResponse.getData().getState();
+                            if(status == 2){
+                                state.setText("会员申请中");
+                                btn_endorse.setText("会员申请中");
+                            }else {
+                            }
+                }});
             }
 
             @Override
@@ -166,13 +175,9 @@ public class ProfileFragment extends BaseFragment {
         });
     }
     private void getNickname(){
-        String token = getStringFromSp("token");
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("token", token);
-        ParseTokenUtils parseTokenUtils = new ParseTokenUtils();
-        String username_ = parseTokenUtils.parseToken(token,"sub");
-        Integer status = Integer.parseInt(parseTokenUtils.parseToken(token,"state"));
-        params.put("username",username_);
+        //更新版，数据都在requstBody里了，不需要解析token，这边随便传一个无用数据
+        params.put("test","test");
         Api.config(ApiConfig.NICKNAME,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
@@ -182,6 +187,7 @@ public class ProfileFragment extends BaseFragment {
                         Log.e("onSuccess", res);
                         Gson gson = new Gson();
                         UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+                        Integer status = userResponse.getData().getState();
                         if (userResponse.getCode() == 200) {
                             username.setText(userResponse.getData().getNickname());
                             if(status == 1){
@@ -202,12 +208,15 @@ public class ProfileFragment extends BaseFragment {
                                 ad_state.setTextColor(getResources().getColor(R.color.vip_color));
                                 ad_state.setTypeface(Typeface.DEFAULT_BOLD,Typeface.BOLD);
                                 ad_state.setText("立即续费");
+                            }else if(status == 0){
 
+                            }else if(status == 2){
+                                state.setText("会员申请中");
+                                btn_endorse.setText("会员申请中");
                             }
-                        } else if(status == 0){
-
-                        }else{
-                            username.setText("未登录/注册");
+                            else{
+                                username.setText("未登录/注册");
+                            }
                         }
                     }
                 });
