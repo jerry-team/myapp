@@ -130,16 +130,16 @@
                     android:layout_marginTop="10dp"
                     android:typeface="sans"
                     ></TextView>
+
                 <Button
                     android:id="@+id/btn_endrose"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/advert_button"
-                    android:text="签约续费会员"
                     android:layout_below="@+id/advert_text2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    />
+                    android:background="@drawable/advert_button"
+                    android:text="签约续费会员" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 

@@ -56,6 +56,7 @@ public class ProfileFragment extends BaseFragment {
     private Button ad_state;
     private RelativeLayout stete_card;
     private ImageView address_icon;
+    private Button btn_endorse;
 
 
     public static ProfileFragment newInstance() {
@@ -81,12 +82,9 @@ public class ProfileFragment extends BaseFragment {
         stete_card = mRootView.findViewById(R.id.state_card);
         //地址管理id=icon_6
         address_icon =mRootView.findViewById(R.id.icon_6);
+        btn_endorse = mRootView.findViewById(R.id.btn_endrose);
     }
 
-//    @Override
-//    protected void initView() {
-//        layout = mRootView.findViewById(R.id.swipeRefreshLayout);
-//    }
 
     @Override
     protected void initData() {
@@ -112,25 +110,33 @@ public class ProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v){ navigateTo(AddressActivity.class); }
         });
+        btn_endorse.setOnClickListener((new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                toApplyMember();
+            }
+        }));
 
-//        checktoken(token);
-//        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                //判断是否在刷新
-//                showToast(layout.isRefreshing() ? "正在刷新" : "刷新完成");
-////                Toast.makeText(ProfileFragment.this, layout.isRefreshing() ? "正在刷新" : "刷新完成", Toast.LENGTH_SHORT).show();
-//
-//                layout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        layout.setRefreshing(false);
-//                    }
-//                }, 1000);
-//            }
-//        });
+
     }
 
+    private void toApplyMember(){
+        HashMap<String,Object> params = new HashMap<String, Object>();
+        //设置state为申请会员状态2
+        params.put("state", 2);
+        Api.config(ApiConfig.APPLYMEMBER,params).postRequest(getActivity(), new TtitCallback() {
+            @Override
+            public void onSuccess(String res) {
+                Gson gson = new Gson();
+                UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+    }
     private void getNickname(){
         String token = getStringFromSp("token");
         HashMap<String, Object> params = new HashMap<String, Object>();

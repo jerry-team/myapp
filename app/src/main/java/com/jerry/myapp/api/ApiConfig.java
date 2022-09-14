@@ -31,6 +31,7 @@ public class ApiConfig {
     public static final String  OFTENSEARCH="/search/showSearchByNumLimit"; //常用搜索
     public static final String DELETESEARCH="/search/deleteAllSearchById"; //删除所有搜索记录
     public static final String DELETESEARCH_CHECK=""; //删除选中的搜索标签
+    public static final String APPLYMEMBER = "/user/update2"; //申请成为会员
 
 
 }
