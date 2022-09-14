@@ -139,11 +139,12 @@
 
                     <RelativeLayout
                         android:layout_marginLeft="10dp">
+
                         <ImageView
                             android:id="@+id/detail_icon_recommend"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/recommend"/>
+                            android:src="@mipmap/recommend" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -343,8 +344,90 @@
 
         </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#ffffff"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcl_3"
+                    android:background="@color/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
+<!--    评论框-->
+    <LinearLayout
+        android:id="@+id/line_comment"
+        android:layout_above="@+id/goods_detail_bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:background="#f0f0f0"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:focusableInTouchMode="true"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_shape"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:id="@+id/et_comment_1"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_width="wrap_content"
+                android:hint="用户"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:singleLine="true"
+                android:maxLength="5"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent"
+                android:background="@null" />
+
+            <EditText
+                android:id="@+id/et_comment_2"
+                android:windowSoftInputMode="adjustPan"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:textColorHint="#b5b5b5"
+                android:hint="发表你的评论吧"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:layout_height="match_parent"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_comment"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#ffffff"
+            android:text="发送" />
+    </LinearLayout>
     <!--底部-->
     <RelativeLayout
         android:id="@+id/goods_detail_bottom"
@@ -382,13 +465,14 @@
             android:id="@+id/rl_customer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/iv_checked_all2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginLeft="70dp"
                 android:src="@mipmap/icon_customer" />
 
             <TextView
@@ -427,9 +511,9 @@
             android:id="@+id/tv_shopcart"
             android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_toLeftOf="@+id/tv_settlement"
             android:layout_centerVertical="true"
             android:layout_marginEnd="6dp"
+            android:layout_toLeftOf="@+id/tv_settlement"
             android:background="@drawable/bg_settlement"
             android:gravity="center"
             android:text="加入购物车"

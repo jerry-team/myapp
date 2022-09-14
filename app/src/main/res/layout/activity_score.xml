@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activity.ScoreActivity"
+    android:orientation="vertical">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        titlebar:centerText="评价"
+        titlebar:centerType="textView"
+        titlebar:leftDrawable="@drawable/comm_titlebar_back_normal"
+        titlebar:leftDrawablePadding="0dp"
+        titlebar:leftText="返回"
+        titlebar:leftType="textView" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:id="@+id/star_describe1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp">
+            <!--1-->
+            <TextView
+                android:id="@+id/score_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="描述相符"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/describe_tip1"
+                android:textSize="14sp"
+                android:textColor="#B6B0AF"
+                android:text="好"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/score_title1"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RatingBar
+                android:id="@+id/describe_score1"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/describe_tip1"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressBackgroundTint="#B6B0AF"
+                android:progressTint="#ffeca011"
+                android:secondaryProgressTint="#ffeca011"
+                android:stepSize="1" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/star_describe2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp">
+            <!--1-->
+            <TextView
+                android:id="@+id/score_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="物流服务"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/describe_tip2"
+                android:textSize="14sp"
+                android:textColor="#B6B0AF"
+                android:text="好"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/score_title2"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RatingBar
+                android:id="@+id/describe_score2"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/describe_tip2"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressBackgroundTint="#B6B0AF"
+                android:progressTint="#ffeca011"
+                android:secondaryProgressTint="#ffeca011"
+                android:stepSize="1" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/star_describe3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="20dp">
+            <!--1-->
+            <TextView
+                android:id="@+id/score_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="服务态度"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/describe_tip3"
+                android:textSize="14sp"
+                android:textColor="#B6B0AF"
+                android:text="好"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/score_title3"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RatingBar
+                android:id="@+id/describe_score3"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/describe_tip3"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressBackgroundTint="#B6B0AF"
+                android:progressTint="#ffeca011"
+                android:secondaryProgressTint="#ffeca011"
+                android:stepSize="1" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_reason"
+            android:background="@color/background"
+            android:layout_marginTop="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/black"
+            android:hint="从多个角度评价宝贝，可以帮助更多想买的人"
+            android:gravity="left|top"
+            android:textSize="14sp"
+            android:textColorHint="#838080"/>
+
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="250dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="280dp"
+            android:background="@drawable/bg_settlement"
+            android:gravity="center"
+            android:text="发布"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

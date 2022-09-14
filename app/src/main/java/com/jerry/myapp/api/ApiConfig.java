@@ -27,10 +27,13 @@ public class ApiConfig {
 
     public static final String SEARCHGOODS= "/search/pageQuery"; //商品搜索，分页加载，瀑布刷新
 
-    public static final String  HISTORYSEARCH="/search/showSearchByTimeLimit"; //历史搜索
-    public static final String  OFTENSEARCH="/search/showSearchByNumLimit"; //常用搜索
+    public static final String HISTORYSEARCH="/search/showSearchByTimeLimit"; //历史搜索
+    public static final String OFTENSEARCH="/search/showSearchByNumLimit"; //常用搜索
     public static final String DELETESEARCH="/search/deleteAllSearchById"; //删除所有搜索记录
     public static final String DELETESEARCH_CHECK=""; //删除选中的搜索标签
+    public static final String GETCOMMENT="/comment/listByCommodityId"; //根据商品id查询评论
+    public static final String ADDCOMMENT="/comment/add"; //添加评论
+    public static final String TEST="/comment/test"; //测试
 
 
 }

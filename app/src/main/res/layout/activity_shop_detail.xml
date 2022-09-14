@@ -25,7 +25,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titlebar"
-        android:layout_above="@+id/goods_detail_bottom"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <RelativeLayout
             android:layout_width="match_parent"

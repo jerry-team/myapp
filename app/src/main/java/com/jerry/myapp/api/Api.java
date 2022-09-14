@@ -46,7 +46,7 @@ public class Api {
 
     public void postRequest(Context context, final TtitCallback callback) {
         SharedPreferences sp = context.getSharedPreferences("sp_ttit", MODE_PRIVATE);
-        String token = sp.getString("token", "");
+        String token = sp.getString("token","");
         JSONObject jsonObject = new JSONObject(mParams);
         String jsonStr = jsonObject.toString();
         RequestBody requestBodyJson =

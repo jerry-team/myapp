@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.icu.text.CaseMap;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.jerry.myapp.R;
 
 import com.jerry.myapp.activity.AddressActivity;
 import com.jerry.myapp.activity.HomeActivity;
+import com.jerry.myapp.activity.OrderActivity;
 import com.jerry.myapp.activity.SettingActivity;
 
 import com.jerry.myapp.api.Api;
@@ -56,6 +58,11 @@ public class ProfileFragment extends BaseFragment {
     private Button ad_state;
     private RelativeLayout stete_card;
     private ImageView address_icon;
+    private ImageView icon_1;
+    private ImageView icon_2;
+    private ImageView icon_3;
+    private ImageView icon_4;
+    private ImageView icon_5;
 
 
     public static ProfileFragment newInstance() {
@@ -81,6 +88,10 @@ public class ProfileFragment extends BaseFragment {
         stete_card = mRootView.findViewById(R.id.state_card);
         //地址管理id=icon_6
         address_icon =mRootView.findViewById(R.id.icon_6);
+        //订单
+        icon_1 = mRootView.findViewById(R.id.icon_1);
+        icon_2 = mRootView.findViewById(R.id.icon_2);
+
     }
 
 //    @Override
@@ -111,6 +122,22 @@ public class ProfileFragment extends BaseFragment {
         address_icon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){ navigateTo(AddressActivity.class); }
+        });
+        icon_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",0);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+        icon_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",1);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
         });
 
 //        checktoken(token);
