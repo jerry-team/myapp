@@ -163,7 +163,11 @@ public class ProfileFragment extends BaseFragment {
                             if(status == 2){
                                 state.setText("会员申请中");
                                 btn_endorse.setText("会员申请中");
-                            }else {
+                                Toast.makeText(getActivity().getApplicationContext(),"申请成功",Toast.LENGTH_SHORT).show();
+                            }else if(status == 1){
+                                Toast.makeText(getActivity().getApplicationContext(),"续费功能未完善",Toast.LENGTH_SHORT).show();
+                            }else if(status == -1){
+                                Toast.makeText(getActivity().getApplicationContext(),"你是管理员",Toast.LENGTH_SHORT).show();
                             }
                 }});
             }
