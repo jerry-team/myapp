@@ -262,15 +262,16 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="4dp"
                             android:src="@mipmap/al_send" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="已发货"
                             android:layout_below="@+id/icon_3"
-                            android:layout_marginTop="5dp"
                             android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:layout_marginTop="5dp"
+                            android:text="待发货"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -291,7 +292,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="待付款"
+                            android:text="待退单"
                             android:layout_below="@+id/icon_4"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="5dp"
@@ -318,7 +319,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="去评价"
+                            android:text="待评价"
                             android:layout_below="@+id/icon_5"
                             android:layout_marginTop="9dp"
                             android:layout_centerHorizontal="true"

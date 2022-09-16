@@ -150,12 +150,12 @@
                     android:id="@+id/tv_cancel_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="280dp"
+                    android:layout_marginLeft="250dp"
                     android:layout_marginTop="30dp"
                     android:text="退单待管理员审核中...."
                     android:visibility="gone"
                     android:textColor="@color/actionsheet_red"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
 
             </RelativeLayout>

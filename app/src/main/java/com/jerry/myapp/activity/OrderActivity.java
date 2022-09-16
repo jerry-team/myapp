@@ -23,7 +23,7 @@ import java.util.List;
 
 public class OrderActivity extends BaseActivity {
 
-    private String[] mTitles = {"全部","待付款","待发货","待收货","待评价"};
+    private String[] mTitles = {"全部","待付款","待发货","待收货","待评价","待退款","已完成"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private Integer tid;
     private CommonTitleBar titleBar;
@@ -48,9 +48,12 @@ public class OrderActivity extends BaseActivity {
         Intent in = getIntent();
         Bundle bd = in.getExtras();
         this.tid = bd.getInt("param");
-        for(int i = 0;i < 5;i++){
+        mFragments.add(OrderFragment.newInstance(10));
+        for(int i = 0;i < 4;i++){
             mFragments.add(OrderFragment.newInstance(i));
         }
+        mFragments.add(OrderFragment.newInstance(-2));
+        mFragments.add(OrderFragment.newInstance(4));
         viewPager.setOffscreenPageLimit(mFragments.size());
         viewPager.setAdapter(new HomeAdapter(getSupportFragmentManager(), mTitles, mFragments));
         slidingTabLayout.setViewPager(viewPager);

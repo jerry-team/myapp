@@ -1,6 +1,8 @@
 package com.jerry.myapp.entity;
 
 
+import java.util.Date;
+
 public class DefaultAddressResponse {
     private Integer code;
     private String msg;
@@ -32,8 +34,8 @@ public class DefaultAddressResponse {
 
     public static class DefaultAddress {
         private Integer id;
-        private Long createTime;
-        private Long updateTime;
+        private String createTime;
+        private String updateTime;
         private String name;
         private Long telephone;
         private String address;
@@ -47,19 +49,19 @@ public class DefaultAddressResponse {
             this.id = id;
         }
 
-        public Long getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(Long createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 
-        public Long getUpdateTime() {
+        public String getUpdateTime() {
             return updateTime;
         }
 
-        public void setUpdateTime(Long updateTime) {
+        public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
         }
 

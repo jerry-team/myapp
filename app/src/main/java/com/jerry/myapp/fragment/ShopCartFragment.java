@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huawei.hms.hwid.A;
 import com.jerry.myapp.activity.HomeActivity;
 import com.jerry.myapp.api.Api;
 import com.jerry.myapp.api.ApiConfig;
@@ -31,6 +32,9 @@ import com.jerry.myapp.R;
 import com.jerry.myapp.adapter.CartShopAdapter;
 import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.LoginResponse;
+import com.jerry.myapp.entity.OrderItemDTO;
+import com.jerry.myapp.entity.OrdersDTO;
+import com.jerry.myapp.entity.Result;
 import com.jerry.myapp.entity.ShopCartCommodityResponse;
 import com.jerry.myapp.util.Constant;
 import com.jerry.myapp.util.GoodsCallback;
@@ -183,7 +187,7 @@ public class ShopCartFragment extends BaseFragment implements GoodsCallback{
                 //弹窗
                 dialog = new AlertDialog.Builder(getActivity())
                         .setMessage("总计:" + totalCount + "种商品，" + totalPrice + "元")
-                        .setPositiveButton("确定", (dialog, which) -> deleteGoods())
+                        .setPositiveButton("确定", (dialog, which) -> addOrders())
                         .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                         .create();
                 dialog.show();
@@ -413,6 +417,124 @@ public class ShopCartFragment extends BaseFragment implements GoodsCallback{
         }
         tvTotal.setText("￥" + totalPrice);
         tvSettlement.setText(totalCount == 0 ? "结算" : "结算(" + totalCount + ")");
+    }
+
+//    新增订单
+    private void addOrders(){
+        Gson gson = new Gson();
+        //店铺列表
+        List<ShopCartCommodityResponse.ShopBean> storeList = new ArrayList<>();
+
+        for (int i = 0; i < shopBeanList.size(); i++) {
+            ShopCartCommodityResponse.ShopBean store = shopBeanList.get(i);
+            if (store.isChecked()) {
+                //店铺如果选择则添加到此列表中
+                Log.e("shopCom",gson.toJson(shopBeanList.get(i).getCommodityList()));
+                store.setCommodityList(shopBeanList.get(i).getCommodityList());
+                Log.e("test",gson.toJson(store.getCommodityList()));
+                storeList.add(store);
+            }
+            //商品列表
+            List<GoodsEntity> goodsList = new ArrayList<>();
+
+            List<GoodsEntity> goods = new ArrayList<>();
+            goods.addAll(store.getCommodityList());
+            //循环店铺中的商品列表
+
+            for (int j = 0; j < goods.size(); j++) {
+                GoodsEntity cartlistBean = goods.get(j);
+                //当有选中商品时添加到此列表中
+                if (cartlistBean.isChecked()) {
+                    goodsList.add(cartlistBean);
+                    HashMap<String, Object> params = new HashMap<String, Object>();
+                    params.put("commodity_id",cartlistBean.getId());
+                    Api.config(ApiConfig.DELSHOPCART, params).postRequest(getActivity(),new TtitCallback() {
+                        @Override
+                        public void onSuccess(final String res) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.e("DelShopCart", res);
+                                    Gson gson = new Gson();
+                                    String rs = gson.fromJson(res, String.class);
+//                                    System.out.println(rs);
+                                }
+                            });
+                        }
+                        @Override
+                        public void onFailure(Exception e) {}
+                    });
+                }
+            }
+            //删除商品
+            goods.removeAll(goodsList);
+        }
+
+        //添加订单
+        List<OrdersDTO> ordersDTOList = new ArrayList<>();
+        for(ShopCartCommodityResponse.ShopBean store:storeList){
+            Double total_amount = 0.0;
+            OrdersDTO ordersDTO = new OrdersDTO();
+            List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
+            List<GoodsEntity> commodityList = store.getCommodityList();
+            Log.e("com",gson.toJson(commodityList));
+            for(GoodsEntity commodity:commodityList){
+                if(commodity.isChecked()){
+                    OrderItemDTO orderItemDTO = new OrderItemDTO();
+                    orderItemDTO.setCommodityId(commodity.getId());
+                    orderItemDTO.setNum(commodity.getNumber());
+                    orderItemDTO.setTotalAmount(commodity.getPrice() * commodity.getNumber());
+                    total_amount += orderItemDTO.getTotalAmount();
+                    orderItemDTOList.add(orderItemDTO);
+                }
+            }
+            ordersDTO.setOrderItemDTOList(orderItemDTOList);
+            ordersDTO.setShopId(store.getId());
+            ordersDTO.setTotalAmount(total_amount);
+            ordersDTOList.add(ordersDTO);
+        }
+        Log.e("ordersDTOLIST",gson.toJson(ordersDTOList));
+
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("OrdersList",gson.toJson(ordersDTOList));
+        Api.config(ApiConfig.ADDORDER, params).postRequest(getActivity(),new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("addOrder", res);
+                        Result rs = gson.fromJson(res, Result.class);
+                        if(rs.getCode() == 601 || rs.getCode() == 602){
+                            Toast.makeText(getActivity(), rs.getMsg(), Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getActivity(), rs.getMsg(), Toast.LENGTH_SHORT).show();
+                            //删除店铺
+                            shopBeanList.removeAll(storeList);
+
+                            shopIdList.clear();//删除了选中商品，清空已选择的标识
+                            controlAllChecked();//控制去全选
+                            //改变界面UI
+                            tvEdit.setText("编辑");
+                            layEdit.setVisibility(View.GONE);
+                            isEdit = false;
+                            //刷新数据
+                            storeAdapter.notifyDataSetChanged();
+                            if (shopBeanList.size() <= 0) {
+                                //无商品
+                                isHaveGoods = false;
+                                //启用下拉刷新
+                                refresh.setEnableRefresh(true);
+                                //显示空布局
+                                layEmpty.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                });
+            }
+            @Override
+            public void onFailure(Exception e) {}
+        });
     }
 
     /**

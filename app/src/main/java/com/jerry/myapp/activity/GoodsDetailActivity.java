@@ -112,6 +112,7 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
     public static EditText et_comment_1;
     public static EditText et_comment_2;
     public static Button bt_comment;
+    public static Integer parentId;
 
     /**
      * 当前播放的位置
@@ -351,6 +352,7 @@ public class GoodsDetailActivity extends BaseActivity implements Callback, Surfa
                         Gson gson = new Gson();
                         DefaultAddressResponse defaultAddressResponse = gson.fromJson(res, DefaultAddressResponse.class);
                         DefaultAddressResponse.DefaultAddress de = defaultAddressResponse.getData();
+                        Log.e("DefaultAddress", gson.toJson(de));
                         default_Address = de.getAddress();
                         address.setText(default_Address);
                     }

@@ -83,22 +83,22 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginTop="2.5dp"
                 android:layout_toRightOf="@+id/ico_comment"
-                android:text="啊哈"
+                android:text="评论"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/bt_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="240dp"
-            android:background="@drawable/bg_settlement"
-            android:text="测试"
-            android:textColor="#101010">
+<!--        <Button-->
+<!--            android:id="@+id/bt_test"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="130dp"-->
+<!--            android:layout_marginTop="240dp"-->
+<!--            android:background="@drawable/bg_settlement"-->
+<!--            android:text="测试"-->
+<!--            android:textColor="#101010">-->
 
-        </Button>
+<!--        </Button>-->
     </RelativeLayout>
 
 

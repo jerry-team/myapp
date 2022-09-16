@@ -91,6 +91,9 @@ public class ProfileFragment extends BaseFragment {
         //订单
         icon_1 = mRootView.findViewById(R.id.icon_1);
         icon_2 = mRootView.findViewById(R.id.icon_2);
+        icon_3 = mRootView.findViewById(R.id.icon_3);
+        icon_4 = mRootView.findViewById(R.id.icon_4);
+        icon_5 = mRootView.findViewById(R.id.icon_5);
 
     }
 
@@ -127,7 +130,7 @@ public class ProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                args.putInt("param",0);
+                args.putInt("param",1);
                 navigateToWithBundle(OrderActivity.class,args);
             }
         });
@@ -135,7 +138,31 @@ public class ProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                args.putInt("param",1);
+                args.putInt("param",2);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+        icon_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",3);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+        icon_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",5);
+                navigateToWithBundle(OrderActivity.class,args);
+            }
+        });
+        icon_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("param",4);
                 navigateToWithBundle(OrderActivity.class,args);
             }
         });

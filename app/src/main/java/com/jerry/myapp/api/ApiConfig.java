@@ -31,9 +31,16 @@ public class ApiConfig {
     public static final String OFTENSEARCH="/search/showSearchByNumLimit"; //常用搜索
     public static final String DELETESEARCH="/search/deleteAllSearchById"; //删除所有搜索记录
     public static final String DELETESEARCH_CHECK=""; //删除选中的搜索标签
+
     public static final String GETCOMMENT="/comment/listByCommodityId"; //根据商品id查询评论
     public static final String ADDCOMMENT="/comment/add"; //添加评论
-    public static final String TEST="/comment/test"; //测试
-
+    public static final String TEST="/comment/test"; //添加订单
+    public static final String ADDORDER="/orders/addOrder"; //测试
+    public static final String PAYORDER="/orders/payOrder"; //支付订单
+    public static final String CANCELORDER="/orders/cancelOrder"; //取消订单
+    public static final String EORDER="/orders/evaluateOrder"; //评价订单
+    public static final String RORDER="/orders/receiveOrder"; //确认收货
+    public static final String LISTORDER="/orders/list"; //查询订单
+    public static final String BACKORDER="/orders/backOrder"; //申请退单
 
 }

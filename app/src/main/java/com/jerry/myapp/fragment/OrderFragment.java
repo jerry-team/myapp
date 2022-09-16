@@ -1,5 +1,6 @@
 package com.jerry.myapp.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,15 +11,23 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jerry.myapp.R;
 import com.jerry.myapp.adapter.OrderAdapter;
+import com.jerry.myapp.api.Api;
+import com.jerry.myapp.api.ApiConfig;
+import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.OrderEntity;
 import com.jerry.myapp.entity.OrderItemEntity;
+import com.jerry.myapp.entity.OrderResponse;
+import com.jerry.myapp.entity.Result;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,13 +64,34 @@ public class OrderFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         getOrderList();
-
         mAdapter = new OrderAdapter(getContext(),orderEntityList);
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
     protected void getOrderList(){
+        Gson gson = new Gson();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("type",this.type);
+        Api.config(ApiConfig.LISTORDER, params).postRequest(getActivity(),new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OrderResponse rs = gson.fromJson(res, OrderResponse.class);
+                        orderEntityList.clear();
+                        orderEntityList.addAll(rs.getData());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+            @Override
+            public void onFailure(Exception e) {}
+        });
+    }
+
+    protected void test(){
         for(int i = 0;i < 6;i++){
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setShopName("测试" + i);
@@ -82,6 +112,5 @@ public class OrderFragment extends BaseFragment {
             orderEntity.setOrderItemList(orderItemEntityList);
             orderEntityList.add(orderEntity);
         }
-
     }
 }

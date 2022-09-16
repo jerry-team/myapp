@@ -7,6 +7,7 @@ import static com.jerry.myapp.activity.GoodsDetailActivity.commodityId;
 import static com.jerry.myapp.activity.GoodsDetailActivity.et_comment_1;
 import static com.jerry.myapp.activity.GoodsDetailActivity.et_comment_2;
 import static com.jerry.myapp.activity.GoodsDetailActivity.line_comment;
+import static com.jerry.myapp.activity.GoodsDetailActivity.parentId;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,7 +43,9 @@ import com.jerry.myapp.api.ApiConfig;
 import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.CommentEntity;
 import com.jerry.myapp.entity.GoodsEntity;
+import com.jerry.myapp.entity.OrderEntity;
 import com.jerry.myapp.entity.OrderItemDTO;
+import com.jerry.myapp.entity.OrderItemEntity;
 import com.jerry.myapp.entity.OrdersDTO;
 import com.jerry.myapp.util.SampleCircleImageView;
 
@@ -78,7 +81,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             content = (TextView) itemView.findViewById(R.id.data);
             replyRecyclerView = itemView.findViewById(R.id.replyRecyclerView);
             rl_comment = itemView.findViewById(R.id.rl_comment);
-            bt_test = itemView.findViewById(R.id.bt_test);
+//            bt_test = itemView.findViewById(R.id.bt_test);
         }
     }
 
@@ -109,52 +112,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.replyRecyclerView.setLayoutManager(linearLayoutManager);
         replyAdapter = new ReplyAdapter(mContext,getReply(commentEntity.getReplyList()));
         holder.replyRecyclerView.setAdapter(replyAdapter);
-        holder.bt_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("aaa");
-                HashMap<String, Object> params = new HashMap<String, Object>();
-                List<OrdersDTO> ordersDTOList = new ArrayList<>();
-                for(int i = 0;i < 2;i++){
-                    OrdersDTO ordersDTO = new OrdersDTO();
-                    ordersDTO.setShopId(i);
-                    List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
-                    for(int j = 0;j < 2;j++){
-                        OrderItemDTO orderItemDTO = new OrderItemDTO();
-                        orderItemDTO.setCommodityId(j);
-                        orderItemDTOList.add(orderItemDTO);
-                    }
-                    ordersDTO.setOrderItemDTOList(orderItemDTOList);
-                    ordersDTOList.add(ordersDTO);
-                }
-                OrdersDTO ordersDTO = new OrdersDTO();
-                ordersDTO.setShopId(23);
-                Gson gson = new Gson();
-                System.out.println(gson.toJson(ordersDTO));
-                params.put("commodityId", 1);
-                params.put("content", gson.toJson(ordersDTO));
-                params.put("parentId",2);
-                params.put("test1",222);
-                params.put("OrdersDTOList",ordersDTOList);
-                params.put("test",gson.toJson(ordersDTO));
-
-                Api.config(ApiConfig.TEST, params).postRequest(mContext,new TtitCallback() {
-                    @Override
-                    public void onSuccess(final String res) {
-                        ((Activity)mContext).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.e("onSuccess", res);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {}
-                });
-
-            }
-        });
         holder.rl_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,10 +121,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 else{
                     line_comment.setVisibility(View.VISIBLE);
                     et_comment_1.setText(commentEntity.getUser_name() + ":");
+                    parentId = commentEntity.getId();
                 }
 
             }
         });
+
 
         bt_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +134,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 CommentEntity comment = new CommentEntity();
                 comment.setCommodityId(commodityId);
                 comment.setContent(et_comment_2.getText().toString());
-                comment.setParentId(commentEntity.getId());
+                comment.setParentId(parentId);
                 addComment(comment);
             }
         });

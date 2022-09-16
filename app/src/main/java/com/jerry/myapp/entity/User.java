@@ -6,6 +6,15 @@ public class User {
     private Integer state;
     private String email;
     private String telephone;
+    private Double money;
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
 
     public String getUsername() {
         return username;

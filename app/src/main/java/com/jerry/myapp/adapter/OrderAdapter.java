@@ -1,8 +1,10 @@
 package com.jerry.myapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +22,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.huawei.hms.hwid.B;
 import com.jerry.myapp.R;
 import com.jerry.myapp.activity.GoodsDetailActivity;
 import com.jerry.myapp.activity.OrderActivity;
 import com.jerry.myapp.activity.OrderReturnActivity;
 import com.jerry.myapp.activity.ScoreActivity;
+import com.jerry.myapp.api.Api;
+import com.jerry.myapp.api.ApiConfig;
+import com.jerry.myapp.api.TtitCallback;
 import com.jerry.myapp.entity.GoodsEntity;
 import com.jerry.myapp.entity.OrderEntity;
+import com.jerry.myapp.entity.Result;
 
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
@@ -113,9 +121,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,int position) {
         OrderEntity orderEntity = orderEntityList.get(position);
         holder.shopName.setText(orderEntity.getShopName());
+        holder.totalMoney.setText("实付款 " + "￥" + orderEntity.getTotalAmount());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext,RecyclerView.VERTICAL,false);
         holder.itemRecyclerView.setLayoutManager(linearLayoutManager);
         orderItemAdapter = new OrderItemAdapter(mContext,orderEntity.getOrderItemList());
@@ -143,9 +152,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
                 holder.finish.setText("已完成");
                 holder.finish.setVisibility(View.VISIBLE);
                 break;
-            case -2:
-                holder.cancelOrder.setText("待退单审核中........");
+            case -1:
+                holder.cancelOrder.setText("订单已取消");
                 holder.cancelOrder.setVisibility(View.VISIBLE);
+                break;
+            case -2:
+                holder.cancelOrder.setText("退单审核中........");
+                holder.cancelOrder.setVisibility(View.VISIBLE);
+                break;
+            case -3:
+                holder.cancelOrder.setText("商家已退单");
+                holder.cancelOrder.setVisibility(View.VISIBLE);
+                break;
+            case -4:
+                holder.cancelOrder.setText("管理员已退单");
+                holder.cancelOrder.setVisibility(View.VISIBLE);
+                break;
             default:
                 break;
         }
@@ -156,7 +178,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             public void onClick(View v) {
                 dialog = new AlertDialog.Builder(mContext)
                         .setMessage("确定支付吗?")
-                        .setPositiveButton("确定", (dialog, which) -> payOrder())
+                        .setPositiveButton("确定", (dialog, which) -> payOrder(position))
                         .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                         .create();
                 dialog.show();
@@ -168,7 +190,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             public void onClick(View v) {
                 dialog = new AlertDialog.Builder(mContext)
                         .setMessage("确认收货吗?")
-                        .setPositiveButton("确定", (dialog, which) -> receiveOrder())
+                        .setPositiveButton("确定", (dialog, which) -> receiveOrder(position))
                         .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                         .create();
                 dialog.show();
@@ -178,6 +200,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         holder.bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                orderEntityList.get(position).setStatus(-2);
+                notifyDataSetChanged();
                 Intent in = new Intent(mContext, ScoreActivity.class);
                 Bundle bd = new Bundle();
                 bd.putInt("orderId",orderEntity.getId().intValue());
@@ -199,7 +223,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
                 //弹窗
                 dialog = new AlertDialog.Builder(mContext)
                         .setMessage("确定要取消订单吗?")
-                        .setPositiveButton("确定", (dialog, which) -> cancelOrder())
+                        .setPositiveButton("确定", (dialog, which) -> cancelOrder(position))
                         .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                         .create();
                 dialog.show();
@@ -232,17 +256,85 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     }
 
     //取消订单
-    public void cancelOrder(){
+    public void cancelOrder(Integer position){
+        Gson gson = new Gson();
+        OrderEntity item = orderEntityList.get(position);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId",item.getId());
+        Api.config(ApiConfig.CANCELORDER, params).postRequest(mContext,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Result rs = gson.fromJson(res, Result.class);
+                        if(rs.getCode() == 200){
+                            item.setStatus(-1);
+                            notifyDataSetChanged();
+                        }
+                        Toast.makeText(mContext, rs.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception e) {}
+        });
     }
 
     //支付订单
-    public void payOrder(){
-        Toast.makeText(mContext,"支付成功",Toast.LENGTH_SHORT).show();
+    public void payOrder(Integer position){
+        OrderEntity item = orderEntityList.get(position);
+        Gson gson = new Gson();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId",item.getId());
+        Api.config(ApiConfig.PAYORDER, params).postRequest(mContext,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Result rs = gson.fromJson(res, Result.class);
+                        if(rs.getCode() == 200){
+                            item.setStatus(1);
+                            notifyDataSetChanged();
+                        }
+                        Toast.makeText(mContext, rs.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception e) {}
+        });
     }
 
     //确认收货
-    public void receiveOrder(){
-        Toast.makeText(mContext,"已确认收货",Toast.LENGTH_SHORT).show();
+    public void receiveOrder(Integer position){
+        Gson gson = new Gson();
+        OrderEntity item = orderEntityList.get(position);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("orderId",item.getId());
+        Api.config(ApiConfig.RORDER, params).postRequest(mContext,new TtitCallback() {
+            @Override
+            public void onSuccess(final String res) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Result rs = gson.fromJson(res, Result.class);
+                        if(rs.getCode() == 200){
+                            item.setStatus(3);
+                            notifyDataSetChanged();
+                        }
+                        Toast.makeText(mContext, rs.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception e) {}
+        });
     }
+
 
 }

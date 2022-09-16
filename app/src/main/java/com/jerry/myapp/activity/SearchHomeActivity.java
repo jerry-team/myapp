@@ -269,7 +269,7 @@ public class SearchHomeActivity extends BaseActivity {
                                 for(SearchEntity entity:list_raw){
                                     list.add(entity.getVal());
                                 }
-                                System.out.println(list.get(1));
+//                                System.out.println(list.get(1));
                                 stringList.clear();
                                 stringList.addAll(list);
                                 searchTagAdapter.notifyDataSetChanged();
