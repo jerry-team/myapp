@@ -32,7 +32,7 @@
             android:id="@+id/tv_order_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="130dp"
             android:layout_toRightOf="@+id/tv_order_name"
             android:text="x1"
             android:textColor="#b5b5b5"
