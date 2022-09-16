@@ -7,6 +7,7 @@ import static com.jerry.myapp.activity.GoodsDetailActivity.commodityId;
 import static com.jerry.myapp.activity.GoodsDetailActivity.et_comment_1;
 import static com.jerry.myapp.activity.GoodsDetailActivity.et_comment_2;
 import static com.jerry.myapp.activity.GoodsDetailActivity.line_comment;
+import static com.jerry.myapp.activity.GoodsDetailActivity.parentId;
 
 import android.app.Activity;
 import android.content.Context;
@@ -108,6 +109,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>{
                 else{
                     line_comment.setVisibility(View.VISIBLE);
                     et_comment_1.setText("回复" + commentEntity.getUser_name() + ":");
+                    parentId = commentEntity.getId();
                 }
             }
         });
@@ -128,8 +130,8 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>{
     public void addComment(CommentEntity comment){
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("commodityId", comment.getCommodityId());
-        params.put("content", "1000");
-        params.put("parentId",comment.getParentId());
+        params.put("content", et_comment_2.getText().toString());
+        params.put("parentId",parentId);
         Api.config(ApiConfig.ADDCOMMENT, params).postRequest(mContext,new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
@@ -139,6 +141,11 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>{
                         line_comment.setVisibility(View.GONE);
                         et_comment_2.setText("");
                         Toast.makeText(mContext, "评论成功", Toast.LENGTH_SHORT).show();
+                        Intent in = new Intent(mContext, GoodsDetailActivity.class);
+                        Bundle bd = new Bundle();
+                        bd.putInt("commodityId",commodityId);
+                        in.putExtras(bd);
+                        mContext.startActivity(in);
                     }
                 });
 

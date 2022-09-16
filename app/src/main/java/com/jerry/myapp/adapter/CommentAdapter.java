@@ -35,6 +35,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huawei.hms.hwid.A;
+import com.huawei.hms.hwid.B;
 import com.huawei.hms.hwid.I;
 import com.jerry.myapp.R;
 import com.jerry.myapp.activity.GoodsDetailActivity;
@@ -142,29 +143,32 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
     public void addComment(CommentEntity comment){
         HashMap<String, Object> params = new HashMap<String, Object>();
-        List<OrdersDTO> ordersDTOList = new ArrayList<>();
-        for(int i = 0;i < 2;i++){
-            OrdersDTO ordersDTO = new OrdersDTO();
-            ordersDTO.setShopId(i);
-            List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
-            for(int j = 0;j < 2;j++){
-                OrderItemDTO orderItemDTO = new OrderItemDTO();
-                orderItemDTO.setCommodityId(j);
-                orderItemDTOList.add(orderItemDTO);
-            }
-            ordersDTO.setOrderItemDTOList(orderItemDTOList);
-            ordersDTOList.add(ordersDTO);
-        }
-
-
-        OrdersDTO ordersDTO = new OrdersDTO();
-        ordersDTO.setShopId(23);
+//        List<OrdersDTO> ordersDTOList = new ArrayList<>();
+//        for(int i = 0;i < 2;i++){
+//            OrdersDTO ordersDTO = new OrdersDTO();
+//            ordersDTO.setShopId(i);
+//            List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
+//            for(int j = 0;j < 2;j++){
+//                OrderItemDTO orderItemDTO = new OrderItemDTO();
+//                orderItemDTO.setCommodityId(j);
+//                orderItemDTOList.add(orderItemDTO);
+//            }
+//            ordersDTO.setOrderItemDTOList(orderItemDTOList);
+//            ordersDTOList.add(ordersDTO);
+//        }
+//
+//
+//        OrdersDTO ordersDTO = new OrdersDTO();
+//        ordersDTO.setShopId(23);
         Gson gson = new Gson();
-        System.out.println(gson.toJson(ordersDTO));
+//        System.out.println(gson.toJson(ordersDTO));
+
         params.put("id",comment.getId());
         params.put("commodityId", comment.getCommodityId());
-        params.put("content", gson.toJson(ordersDTO));
-        params.put("parentId",comment.getParentId());
+        params.put("content", et_comment_2.getText().toString());
+        params.put("parentId",parentId);
+        System.out.println(et_comment_2.getText().toString());
+        System.out.println(parentId);
 //        params.put("test1",222);
 //        params.put("OrdersDTOList",ordersDTOList);
 //        params.put("test",gson.toJson(ordersDTO));
@@ -179,6 +183,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         line_comment.setVisibility(View.GONE);
                         et_comment_2.setText("");
                         Toast.makeText(mContext, "评论成功", Toast.LENGTH_SHORT).show();
+                        Intent in = new Intent(mContext, GoodsDetailActivity.class);
+                        Bundle bd = new Bundle();
+                        bd.putInt("commodityId",commodityId);
+                        in.putExtras(bd);
+                        mContext.startActivity(in);
                     }
                 });
             }
