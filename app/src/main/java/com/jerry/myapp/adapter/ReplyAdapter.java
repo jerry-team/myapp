@@ -138,7 +138,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>{
                 ((Activity)mContext).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        line_comment.setVisibility(View.GONE);
+                        line_comment .setVisibility(View.GONE);
                         et_comment_2.setText("");
                         Toast.makeText(mContext, "评论成功", Toast.LENGTH_SHORT).show();
                         Intent in = new Intent(mContext, GoodsDetailActivity.class);

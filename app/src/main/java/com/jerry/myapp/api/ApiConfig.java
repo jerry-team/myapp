@@ -44,5 +44,6 @@ public class ApiConfig {
     public static final String RORDER="/orders/receiveOrder"; //确认收货
     public static final String LISTORDER="/orders/list"; //查询订单
     public static final String BACKORDER="/orders/backOrder"; //申请退单
+    public static final String RMD="/commodity/recommend"; //推荐列表
 
 }

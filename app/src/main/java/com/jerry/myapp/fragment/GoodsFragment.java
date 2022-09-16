@@ -116,23 +116,91 @@ public class GoodsFragment extends BaseFragment {
 //        });
 
 
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                pageNum = 1;
-                getGoodsList(true);
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                pageNum++;
-                getGoodsList(false);
-            }
-        });
-        getGoodsList(true);
+        if(categoryId != 1){
+            refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(RefreshLayout refreshlayout) {
+                    pageNum = 1;
+                    getGoodsList(true);
+                }
+            });
+            refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshlayout) {
+                    pageNum++;
+                    getGoodsList(false);
+                }
+            });
+        }
+
+        if(categoryId != 1){
+            getGoodsList(true);
+        }
+        else{
+            getRMD(true);
+        }
     }
 
+    private void getRMD(final boolean isRefresh){
+        String token = getStringFromSp("token");
+        if(!StringUtils.isEmpty(token)){
+            HashMap<String, Object> params = new HashMap<>();
+//            params.put("token", token);
+//            params.put("start", pageNum);
+//            params.put("pageSize", ApiConfig.PAGE_SIZE);
+//            params.put("categoryId", categoryId);
+            Api.config(ApiConfig.RMD,params).postRequest(getActivity(),new TtitCallback() {
+                @Override
+                public void onSuccess(final String res) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(isRefresh){
+                                refreshLayout.finishRefresh(true);//关闭刷新动画
+                            }
+                            else{
+                                refreshLayout.finishLoadMore(true);
+                            }
+                            GoodsResponse response = new Gson().fromJson(res, GoodsResponse.class);
+                            if(response != null && response.getCode() == 200){
+                                List<GoodsEntity> list = response.getData();
+                                if (list != null && list.size() > 0) {
+                                    if (isRefresh) {
+                                        goodsEntityList = list;
+                                    } else {
+                                        goodsEntityList.addAll(list);
+                                    }
+                                    mAdapter.setDatas(goodsEntityList);
+                                    mAdapter.notifyDataSetChanged();//通知view数据已更新，刷新视图
+                                }
+                                else{
+                                    if(isRefresh){
+                                        showToast("暂时加载无数据");
+                                    }
+                                    else{
+                                        showToast("没有更多数据");
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                @Override
+                public void onFailure(Exception e) {
+                    if(isRefresh){
+                        refreshLayout.finishRefresh(true);//关闭刷新动画
+                    }
+                    else{
+                        refreshLayout.finishLoadMore(true);
+                    }
+                }
+            });
+        }
+        else{
+            navigateTo(LoginActivity.class);
+        }
+
+    }
 
 
     private void getGoodsList(final boolean isRefresh){
