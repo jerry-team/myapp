@@ -58,6 +58,7 @@ public class ProfileFragment extends BaseFragment {
     private Button ad_state;
     private RelativeLayout stete_card;
     private ImageView address_icon;
+    private Button btn_endorse;
     private ImageView icon_1;
     private ImageView icon_2;
     private ImageView icon_3;
@@ -88,19 +89,17 @@ public class ProfileFragment extends BaseFragment {
         stete_card = mRootView.findViewById(R.id.state_card);
         //地址管理id=icon_6
         address_icon =mRootView.findViewById(R.id.icon_6);
+        btn_endorse = mRootView.findViewById(R.id.btn_endrose);
         //订单
         icon_1 = mRootView.findViewById(R.id.icon_1);
         icon_2 = mRootView.findViewById(R.id.icon_2);
+
         icon_3 = mRootView.findViewById(R.id.icon_3);
         icon_4 = mRootView.findViewById(R.id.icon_4);
         icon_5 = mRootView.findViewById(R.id.icon_5);
 
     }
 
-//    @Override
-//    protected void initView() {
-//        layout = mRootView.findViewById(R.id.swipeRefreshLayout);
-//    }
 
     @Override
     protected void initData() {
@@ -126,6 +125,14 @@ public class ProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v){ navigateTo(AddressActivity.class); }
         });
+        btn_endorse.setOnClickListener((new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                toApplyMember();
+            }
+        }));
+
+
         icon_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,32 +174,43 @@ public class ProfileFragment extends BaseFragment {
             }
         });
 
-//        checktoken(token);
-//        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                //判断是否在刷新
-//                showToast(layout.isRefreshing() ? "正在刷新" : "刷新完成");
-////                Toast.makeText(ProfileFragment.this, layout.isRefreshing() ? "正在刷新" : "刷新完成", Toast.LENGTH_SHORT).show();
-//
-//                layout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        layout.setRefreshing(false);
-//                    }
-//                }, 1000);
-//            }
-//        });
     }
 
+    private void toApplyMember(){
+        HashMap<String,Object> params = new HashMap<String, Object>();
+        //设置state为申请会员状态2
+        params.put("state", 2);
+        Api.config(ApiConfig.APPLYMEMBER,params).postRequest(getActivity(), new TtitCallback() {
+            @Override
+            public void onSuccess(String res) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+                            Integer status=userResponse.getData().getState();
+                            if(status == 2){
+                                state.setText("会员申请中");
+                                btn_endorse.setText("会员申请中");
+                                Toast.makeText(getActivity().getApplicationContext(),"申请成功",Toast.LENGTH_SHORT).show();
+                            }else if(status == 1){
+                                Toast.makeText(getActivity().getApplicationContext(),"续费功能未完善",Toast.LENGTH_SHORT).show();
+                            }else if(status == -1){
+                                Toast.makeText(getActivity().getApplicationContext(),"你是管理员",Toast.LENGTH_SHORT).show();
+                            }
+                }});
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+    }
     private void getNickname(){
-        String token = getStringFromSp("token");
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("token", token);
-        ParseTokenUtils parseTokenUtils = new ParseTokenUtils();
-        String username_ = parseTokenUtils.parseToken(token,"sub");
-        Integer status = Integer.parseInt(parseTokenUtils.parseToken(token,"state"));
-        params.put("username",username_);
+        //更新版，数据都在requstBody里了，不需要解析token，这边随便传一个无用数据
+        params.put("test","test");
         Api.config(ApiConfig.NICKNAME,params).postRequest(getActivity(),new TtitCallback() {
             @Override
             public void onSuccess(final String res) {
@@ -202,6 +220,7 @@ public class ProfileFragment extends BaseFragment {
                         Log.e("onSuccess", res);
                         Gson gson = new Gson();
                         UserResponse userResponse = gson.fromJson(res, UserResponse.class);
+                        Integer status = userResponse.getData().getState();
                         if (userResponse.getCode() == 200) {
                             username.setText(userResponse.getData().getNickname());
                             if(status == 1){
@@ -222,12 +241,15 @@ public class ProfileFragment extends BaseFragment {
                                 ad_state.setTextColor(getResources().getColor(R.color.vip_color));
                                 ad_state.setTypeface(Typeface.DEFAULT_BOLD,Typeface.BOLD);
                                 ad_state.setText("立即续费");
+                            }else if(status == 0){
 
+                            }else if(status == 2){
+                                state.setText("会员申请中");
+                                btn_endorse.setText("会员申请中");
                             }
-                        } else if(status == 0){
-
-                        }else{
-                            username.setText("未登录/注册");
+                            else{
+                                username.setText("未登录/注册");
+                            }
                         }
                     }
                 });

@@ -32,6 +32,8 @@ public class ApiConfig {
     public static final String DELETESEARCH="/search/deleteAllSearchById"; //删除所有搜索记录
     public static final String DELETESEARCH_CHECK=""; //删除选中的搜索标签
 
+    public static final String APPLYMEMBER = "/user/update2"; //申请成为会员
+
     public static final String GETCOMMENT="/comment/listByCommodityId"; //根据商品id查询评论
     public static final String ADDCOMMENT="/comment/add"; //添加评论
     public static final String TEST="/comment/test"; //添加订单
